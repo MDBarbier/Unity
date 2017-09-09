@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/scenes/mingame.unity
+  isLoaded: 1
+  isActive: 1
