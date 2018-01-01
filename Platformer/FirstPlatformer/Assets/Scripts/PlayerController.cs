@@ -2,29 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
 
     public float moveSpeed;
     private Rigidbody2D myRigidBody;
     public float jumpSpeed;
-
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
     public bool isGrounded;
-
     private Animator myAnimator;
+    public Vector3 respawnPoint;
+    public LevelManager theLevelManager;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         myRigidBody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        respawnPoint = transform.position;
+        theLevelManager = FindObjectOfType<LevelManager>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         //Grounded status
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
@@ -55,13 +60,17 @@ public class PlayerController : MonoBehaviour {
         myAnimator.SetFloat("Speed", Mathf.Abs(myRigidBody.velocity.x)); /* Abs returns absolute of a float, i.e. if the value is -5 it returns 5... 
         this is because we want to treat -5 x speed as greater than zero for our animations*/
         myAnimator.SetBool("Grounded", isGrounded);
-	}
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "KillPlane")
         {
-            gameObject.SetActive(false);
+            theLevelManager.Respawn();
+        }
+        else if (collision.tag == "Checkpoint")
+        {
+            respawnPoint = collision.transform.position;
         }
     }
 }
