@@ -7,11 +7,12 @@ public class LevelManager : MonoBehaviour {
 
     public float waitToRespawn;
     public PlayerController thePlayer;
+    public GameObject deathExplosion;
 
 	// Use this for initialization
 	void Start () {
 
-        thePlayer = FindObjectOfType<PlayerController>();
+        thePlayer = FindObjectOfType<PlayerController>();        
 	}
 	
 	// Update is called once per frame
@@ -28,8 +29,11 @@ public class LevelManager : MonoBehaviour {
     {
         thePlayer.gameObject.SetActive(false);
 
+        Instantiate(deathExplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+
         yield return new WaitForSeconds(waitToRespawn);
 
+        
         thePlayer.transform.position = thePlayer.respawnPoint;
         thePlayer.gameObject.SetActive(true);
     }
