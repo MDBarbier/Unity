@@ -1,28 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HurtPlayer : MonoBehaviour
 {
     public LevelManager levelManager;
+    public int damageToInflict;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            levelManager.Respawn();
+            levelManager.HurtPlayer(damageToInflict);
         }
     }
 }

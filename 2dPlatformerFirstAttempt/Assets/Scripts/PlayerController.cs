@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Animator myAnim; //reference to the animator for the player
     public Vector3 respawnPosition;
     public LevelManager levelManager;
+    public MovingObject[] theMovingObjects;
 
     // Start is called before the first frame update
     public void Start()
@@ -22,6 +21,7 @@ public class PlayerController : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody2D>(); //gets the instance of the rigidbody for the player object
         myAnim = GetComponent<Animator>(); //gets the animator for the player
         levelManager = FindObjectOfType<LevelManager>();
+        theMovingObjects = FindObjectsOfType<MovingObject>(); //get a list of all moving objects 
 
         //set respawn
         respawnPosition = transform.position;
@@ -70,19 +70,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    //Handles when the player leaves a collisiont with another collider
+    public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "MovingPlatform")
         {
+            foreach (var movingObject in theMovingObjects)
+            {
+                if (movingObject.name == other.gameObject.transform.parent.name)
+                {
+                    Debug.Log($"Found the moving object {other.gameObject.transform.parent.name} which has a movespeed of {movingObject.moveSpeed}");                    
+                }
+            }
+
             transform.parent = other.transform;
         }
     }
 
-    void OnCollisionExit2D(Collision2D other)
+    //Handles when the player leaves a collisiont with another collider
+    public void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.tag == "MovingPlatform")
         {
-            transform.parent = null;
+            if (gameObject.activeSelf) //check if the go is active because you can't change parent in the same frame as it was activated/deactivated
+                transform.parent = null;
         }
     }
 }

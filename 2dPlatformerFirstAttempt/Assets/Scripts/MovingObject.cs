@@ -11,13 +11,13 @@ public class MovingObject : MonoBehaviour
     private Vector3 currentTarget;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         currentTarget = endPoint.position;        
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         obectToMove.transform.position = Vector3.MoveTowards(obectToMove.transform.position, currentTarget, moveSpeed * Time.deltaTime);
 
