@@ -123,3 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
   damageToInflict: 1
+  thePlayer: {fileID: 0}
+  hurtsplosionEffect: {fileID: 9084741284623870462, guid: a4e1a55edb8ffb7468cb28f67b80badf,
+    type: 3}

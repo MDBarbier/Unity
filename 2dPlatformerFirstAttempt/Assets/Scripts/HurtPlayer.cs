@@ -4,10 +4,10 @@ public class HurtPlayer : MonoBehaviour
 {
     public LevelManager levelManager;
     public int damageToInflict;
-
+    
     // Start is called before the first frame update
     public void Start()
-    {
+    {        
         levelManager = FindObjectOfType<LevelManager>();
     }
 
@@ -21,7 +21,7 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            levelManager.HurtPlayer(damageToInflict);
+            levelManager.HurtPlayer(damageToInflict);            
         }
     }
 }

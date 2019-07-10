@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     public float waitToRespawn;
     public PlayerController thePlayer;
     public GameObject deathsplosionEffect;
+    public GameObject hurtsplosionEffect;
     public int coinCount;
     public Text scoreText;
     public Image health1;
@@ -20,7 +21,7 @@ public class LevelManager : MonoBehaviour
     private bool startedRespawn = false;
 
     // Start is called before the first frame update
-    public void Start()
+    public void Start() 
     {
         thePlayer = FindObjectOfType<PlayerController>();
         scoreText.text = "Score: 0000";
@@ -77,6 +78,11 @@ public class LevelManager : MonoBehaviour
         if (currentHealth <= 0 && !startedRespawn)
         {
             Respawn();
+        }
+        else
+        {
+            //fire particle effect
+            Instantiate(hurtsplosionEffect, thePlayer.transform.position, new Quaternion(thePlayer.transform.rotation.x + 90f, thePlayer.transform.rotation.y, thePlayer.transform.rotation.z, thePlayer.transform.rotation.w));
         }
     }
 
