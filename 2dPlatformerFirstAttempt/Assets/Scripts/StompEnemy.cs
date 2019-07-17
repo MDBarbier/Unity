@@ -6,11 +6,13 @@ public class StompEnemy : MonoBehaviour
 {
 
     public GameObject deathsplosionEffect;
+    private Rigidbody2D playerRigidBody;
+    public float bounceForce;
 
     // Start is called before the first frame update
     public void Start()
     {
-        
+        playerRigidBody = transform.parent.GetComponent<Rigidbody2D>();    
     }
 
     // Update is called once per frame
@@ -27,7 +29,9 @@ public class StompEnemy : MonoBehaviour
             Instantiate(deathsplosionEffect, other.gameObject.transform.position, new Quaternion(other.gameObject.transform.rotation.x + 90f, other.gameObject.transform.rotation.y, 
                 other.gameObject.transform.rotation.z, other.gameObject.transform.rotation.w));
 
-            Destroy(other.gameObject);
+            playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, bounceForce, 0f);
+
+            other.gameObject.SetActive(false);
         }
     }
 }

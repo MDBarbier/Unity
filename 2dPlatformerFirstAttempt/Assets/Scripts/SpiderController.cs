@@ -36,4 +36,9 @@ public class SpiderController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void OnEnable()
+    {
+        enemyActivated = false;
+    }
 }

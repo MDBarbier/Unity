@@ -11,16 +11,22 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround; //defines what is the ground, i.e. the Layer called "Ground"
     public bool isGrounded; //tracks whether or not the player is grounded
     private Animator myAnim; //reference to the animator for the player
-    public Vector3 respawnPosition;
-    public LevelManager levelManager;
-    public MovingObject[] theMovingObjects;
+    public Vector3 respawnPosition; //the position for the player to respawn in
+    public LevelManager levelManager; //reference to the level manager so we can interact with it
+    public MovingObject[] theMovingObjects; //get all moving objects into an array
+    public GameObject stompBox; //reference to player stompbox
+    public float knockbackForce; //how much force the player gets knocked back when hitting a danger
+    public float knockbackLength; //duration of knockback effect
+    private float knockbackCounter; //duration of knockback effect
+    public float invincibilityLength;
+    private float invincibilityCounter;
 
     // Start is called before the first frame update
     public void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>(); //gets the instance of the rigidbody for the player object
         myAnim = GetComponent<Animator>(); //gets the animator for the player
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = FindObjectOfType<LevelManager>(); //there's only one
         theMovingObjects = FindObjectsOfType<MovingObject>(); //get a list of all moving objects 
 
         //set respawn
@@ -33,7 +39,53 @@ public class PlayerController : MonoBehaviour
         //check if the player is in contact with the ground, by checking if the radius we have specified to check is in contact with the ground
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
+        //Only allow player control if they are not currently being knocked back
+        if (knockbackCounter <= 0)
+        {
+            if (invincibilityCounter <= 0)
+            {
+                levelManager.invincible = false;
+            }
+            else
+            {
+                invincibilityCounter -= Time.deltaTime;
+                Debug.Log($"Player has {invincibilityCounter} of invincibility remaining");
+            }
 
+            HandlePlayerInput();
+        }
+        else
+        {
+            knockbackCounter -= Time.deltaTime;
+
+            if (transform.localScale.x > 0)
+            {
+                myRigidBody.velocity = new Vector3(-knockbackForce, (knockbackForce / 5) * 3, 0f);
+            }
+            else
+            {
+                myRigidBody.velocity = new Vector3(knockbackForce, (knockbackForce / 5) * 3, 0f);
+            }           
+        }
+
+        //Sets up animator
+        myAnim.SetFloat("Speed", Mathf.Abs(myRigidBody.velocity.x)); //sets animator speed as absolute (if player moving left X velocity will be treated as 5 not -5)
+        myAnim.SetBool("Grounded", isGrounded);
+    }
+
+    private void HandlePlayerInput()
+    {
+        //if player is falling, activate stomp box
+        if (myRigidBody.velocity.y < 0)
+        {
+            stompBox.SetActive(true);
+        }
+        else
+        {
+            stompBox.SetActive(false);
+        }
+
+        //Handle horizontal movement
         if (Input.GetAxisRaw("Horizontal") > 0f) //moving right
         {
             myRigidBody.velocity = new Vector3(moveSpeed, myRigidBody.velocity.y, 0f);
@@ -49,18 +101,16 @@ public class PlayerController : MonoBehaviour
             myRigidBody.velocity = new Vector3(0f, myRigidBody.velocity.y, 0f);
         }
 
+        //Handle jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             myRigidBody.velocity = new Vector3(myRigidBody.velocity.x, jumpSpeed, 0f);
         }
-
-        myAnim.SetFloat("Speed", Mathf.Abs(myRigidBody.velocity.x)); //sets animator speed as absolute (if player moving left X velocity will be treated as 5 not -5)
-        myAnim.SetBool("Grounded", isGrounded);
     }
 
     public void OnTriggerEnter2D(Collider2D otherGameObject)
     {
-        if (otherGameObject.tag == "KillPlane")
+        if (otherGameObject.tag == "KillPlane" && levelManager.startedRespawn == false)
         {
             levelManager.Respawn();
         }
@@ -79,7 +129,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (movingObject.name == other.gameObject.transform.parent.name)
                 {
-                    Debug.Log($"Found the moving object {other.gameObject.transform.parent.name} which has a movespeed of {movingObject.moveSpeed}");                    
+                    Debug.Log($"Found the moving object {other.gameObject.transform.parent.name} which has a movespeed of {movingObject.moveSpeed}");
                 }
             }
 
@@ -94,6 +144,17 @@ public class PlayerController : MonoBehaviour
         {
             if (gameObject.activeSelf) //check if the go is active because you can't change parent in the same frame as it was activated/deactivated
                 transform.parent = null;
+        }
+    }
+
+    public void Knockback()
+    {
+        invincibilityCounter = invincibilityLength;
+        levelManager.invincible = true;
+
+        if (isGrounded)
+        {            
+            knockbackCounter = knockbackLength;
         }
     }
 }

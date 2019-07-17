@@ -252,7 +252,6 @@ C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\Temp\bin\Debug\Uni
 C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\Temp\bin\Debug\UnityEngine.VideoModule.xml
 C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\Temp\bin\Debug\UnityEngine.WindModule.xml
 C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\Temp\bin\Debug\UnityEngine.XRModule.xml
-C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\matt\Documents\GitHub\Unity\2dPlatformerFirstAttempt\obj\Debug\Assembly-CSharp.dll
