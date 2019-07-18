@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "MovingPlatform")
         {
             if (gameObject.activeSelf) //check if the go is active because you can't change parent in the same frame as it was activated/deactivated
-                transform.parent = null;
+                transform.parent = GameObject.Find("-----------Player").transform;
         }
     }
 
