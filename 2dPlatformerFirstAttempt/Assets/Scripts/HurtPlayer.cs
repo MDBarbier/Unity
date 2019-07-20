@@ -21,7 +21,7 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            levelManager.HurtPlayer(damageToInflict);            
+            levelManager.HurtPlayer(damageToInflict,true);            
         }
     }
 }

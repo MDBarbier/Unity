@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     private int currentLives;
     public int startingLives;
     public Text livesText;
+    public GameObject gameOverScreen;
 
     // Start is called before the first frame update
     public void Start() 
@@ -45,7 +46,7 @@ public class LevelManager : MonoBehaviour
     public void Respawn()
     {
         currentLives -= 1;
-        livesText.text = $"x {currentLives}";
+        UpdateLivesText();
 
         //fire particle effect
         Instantiate(deathsplosionEffect, thePlayer.transform.position, new Quaternion(thePlayer.transform.rotation.x + 90f, thePlayer.transform.rotation.y, thePlayer.transform.rotation.z, thePlayer.transform.rotation.w));
@@ -53,12 +54,18 @@ public class LevelManager : MonoBehaviour
         if (currentLives <= 0)
         {
             livesText.text = $"Game over!";
+            gameOverScreen.SetActive(true);
             thePlayer.gameObject.SetActive(false);
         }
         else
         {
             StartCoroutine("RespawnCo");
         }
+    }
+
+    private void UpdateLivesText()
+    {
+        livesText.text = $"x {currentLives}";
     }
 
     //Coroutine to respawn the player with a delay
@@ -95,12 +102,13 @@ public class LevelManager : MonoBehaviour
         scoreText.text = $"Score: " + coinCount.ToString().PadLeft(4, '0');
     }
 
-    public void HurtPlayer(int damageAmount)
+    public void HurtPlayer(int damageAmount, bool updateHealthMeter)
     {
         if (!invincible)
         {
             currentHealth -= damageAmount;
-            UpdateHealthMeter();
+
+            if (updateHealthMeter) UpdateHealthMeter();
 
             thePlayer.Knockback();
 
@@ -171,5 +179,11 @@ public class LevelManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void AdjustLives(int livesToAdd)
+    {
+        currentLives += livesToAdd;
+        UpdateLivesText();
     }
 }

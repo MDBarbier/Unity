@@ -39,5 +39,45 @@ namespace Tests
 
             yield return null;
         }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void TestHurtPlayerWhenNotInvincible(int damageToInflict)
+        {
+            LevelManager lm = new GameObject().AddComponent<LevelManager>();
+            PlayerController pc = new GameObject().AddComponent<PlayerController>();
+
+            lm.thePlayer = pc;
+            pc.levelManager = lm;
+            lm.hurtsplosionEffect = new GameObject();
+            lm.invincible = false;
+            lm.currentHealth = 3;
+            
+
+            lm.HurtPlayer(damageToInflict, false);
+
+            Assert.IsTrue(lm.currentHealth == 3-damageToInflict);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(200)]
+        public void TestHurtPlayerWhenIsInvincible(int damageToInflict)
+        {
+            LevelManager lm = new GameObject().AddComponent<LevelManager>();
+            PlayerController pc = new GameObject().AddComponent<PlayerController>();
+
+            lm.thePlayer = pc;
+            pc.levelManager = lm;
+            lm.hurtsplosionEffect = new GameObject();
+            lm.invincible = true;
+            lm.currentHealth = 3;
+
+
+            lm.HurtPlayer(damageToInflict, false);
+
+            Assert.IsTrue(lm.currentHealth == 3);
+        }
     }
 }
