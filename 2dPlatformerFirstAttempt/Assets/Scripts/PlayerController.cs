@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private float knockbackCounter; //duration of knockback effect
     public float invincibilityLength;
     private float invincibilityCounter;
+    public AudioSource jumpSound;
+    public AudioSource pickupCoinSound;
 
     // Start is called before the first frame update
     public void Start()
@@ -104,6 +106,7 @@ public class PlayerController : MonoBehaviour
         //Handle jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            jumpSound.Play();
             myRigidBody.velocity = new Vector3(myRigidBody.velocity.x, jumpSpeed, 0f);
         }
     }

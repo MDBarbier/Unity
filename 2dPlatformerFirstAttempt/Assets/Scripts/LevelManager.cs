@@ -25,6 +25,9 @@ public class LevelManager : MonoBehaviour
     public int startingLives;
     public Text livesText;
     public GameObject gameOverScreen;
+    private int progressToNewLife;
+    public AudioSource levelMusic;
+    public AudioSource gameOverMusic;
 
     // Start is called before the first frame update
     public void Start() 
@@ -54,6 +57,8 @@ public class LevelManager : MonoBehaviour
         if (currentLives <= 0)
         {
             livesText.text = $"Game over!";
+            levelMusic.Stop();
+            gameOverMusic.Play();
             gameOverScreen.SetActive(true);
             thePlayer.gameObject.SetActive(false);
         }
@@ -98,7 +103,17 @@ public class LevelManager : MonoBehaviour
 
     public void AddCoins(int coinsToAdd)
     {
-        coinCount += coinsToAdd;        
+        coinCount += coinsToAdd;
+        progressToNewLife += coinsToAdd;
+        thePlayer.pickupCoinSound.Play();
+
+        if (progressToNewLife >= 100)
+        {
+            AdjustLives(1);
+
+            progressToNewLife -= 100;
+        }
+
         scoreText.text = $"Score: " + coinCount.ToString().PadLeft(4, '0');
     }
 
@@ -122,6 +137,13 @@ public class LevelManager : MonoBehaviour
                 Instantiate(hurtsplosionEffect, thePlayer.transform.position, new Quaternion(thePlayer.transform.rotation.x + 90f, thePlayer.transform.rotation.y, thePlayer.transform.rotation.z, thePlayer.transform.rotation.w));
             }
         }
+    }
+
+    public void RestoreHealth(int healthToRestore, bool updateHealthMeter)
+    {
+        currentHealth = currentHealth + healthToRestore > maxHealth ? maxHealth : currentHealth + healthToRestore;
+
+        if (updateHealthMeter) UpdateHealthMeter();
     }
 
     public void UpdateHealthMeter()
