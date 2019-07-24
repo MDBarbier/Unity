@@ -23,6 +23,7 @@ public class ExtraLifeScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            theLevelManager.thePlayer.pickupCoinSound.Play();
             theLevelManager.AdjustLives(numberOfLivesToGive);
             gameObject.SetActive(false);
         }

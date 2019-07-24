@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6190290686345973322}
   - component: {fileID: 6190290686345973321}
   - component: {fileID: 5865788843176117053}
+  - component: {fileID: -8090149939764324200}
   m_Layer: 0
   m_Name: SpiderEnemy (1)
   m_TagString: Enemy
@@ -145,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.04}
+  m_Offset: {x: 0, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -156,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.56, y: 0.86}
+  m_Size: {x: 0.56, y: 0.52}
   m_EdgeRadius: 0
 --- !u!50 &6190290686345973323
 Rigidbody2D:
@@ -218,3 +219,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4e14e7497716c4996ec171fe58dd85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &-8090149939764324200
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190290686345973320}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.48}
+  serializedVersion: 2
+  m_Radius: 0.03

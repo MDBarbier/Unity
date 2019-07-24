@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     private float invincibilityCounter;
     public AudioSource jumpSound;
     public AudioSource pickupCoinSound;
+    private bool onPlatform;
+    public float onPlatformSpeedModifier;
+    private float activeMoveSpeed;
 
     // Start is called before the first frame update
     public void Start()
@@ -33,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
         //set respawn
         respawnPosition = transform.position;
+
+        activeMoveSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -87,15 +92,24 @@ public class PlayerController : MonoBehaviour
             stompBox.SetActive(false);
         }
 
+        if (onPlatform)
+        {
+            activeMoveSpeed = moveSpeed * onPlatformSpeedModifier;
+        }        
+        else
+        {
+            activeMoveSpeed = moveSpeed;
+        }
+
         //Handle horizontal movement
         if (Input.GetAxisRaw("Horizontal") > 0f) //moving right
         {
-            myRigidBody.velocity = new Vector3(moveSpeed, myRigidBody.velocity.y, 0f);
+            myRigidBody.velocity = new Vector3(activeMoveSpeed, myRigidBody.velocity.y, 0f);
             this.transform.localScale = new Vector3(1f, 1f, 1f); //every unity gameobject has a transform so we don't need to look for it
         }
         else if (Input.GetAxisRaw("Horizontal") < 0f) //moving left
         {
-            myRigidBody.velocity = new Vector3(-moveSpeed, myRigidBody.velocity.y, 0f);
+            myRigidBody.velocity = new Vector3(-activeMoveSpeed, myRigidBody.velocity.y, 0f);
             this.transform.localScale = new Vector3(-1f, 1f, 1f); //every unity gameobject has a transform so we don't need to look for it
         }
         else
@@ -128,6 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "MovingPlatform")
         {
+            onPlatform = true;
             foreach (var movingObject in theMovingObjects)
             {
                 if (movingObject.name == other.gameObject.transform.parent.name)
@@ -137,7 +152,7 @@ public class PlayerController : MonoBehaviour
             }
 
             transform.parent = other.transform;
-        }
+        }        
     }
 
     //Handles when the player leaves a collisiont with another collider
@@ -145,9 +160,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "MovingPlatform")
         {
+            onPlatform = false;
+
             if (gameObject.activeSelf) //check if the go is active because you can't change parent in the same frame as it was activated/deactivated
                 transform.parent = GameObject.Find("-----------Player").transform;
         }
+
     }
 
     public void Knockback()
