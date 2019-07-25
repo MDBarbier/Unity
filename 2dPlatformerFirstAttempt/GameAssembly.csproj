@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\CheckpointController.cs" />
      <Compile Include="Assets\Scripts\CoinScript.cs" />
      <Compile Include="Assets\Scripts\DestroyOverTime.cs" />
+     <Compile Include="Assets\Scripts\ExitLevel.cs" />
      <Compile Include="Assets\Scripts\ExtraLifeScript.cs" />
      <Compile Include="Assets\Scripts\HealthPickup.cs" />
      <Compile Include="Assets\Scripts\HurtPlayer.cs" />
