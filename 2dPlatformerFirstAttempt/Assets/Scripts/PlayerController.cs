@@ -5,7 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed; //sets the speed for horizontal movement
     public float jumpSpeed; //sets the speed for jumping movement
-    private Rigidbody2D myRigidBody; //how the player object interacts with the physics engine
+    public bool canMove;
+    internal Rigidbody2D myRigidBody; //how the player object interacts with the physics engine
     public Transform groundCheck; //used to check if player is in contact with the gorund, assigned to a point at player's feet
     public float groundCheckRadius; //radius from bottom of player to check for ground
     public LayerMask whatIsGround; //defines what is the ground, i.e. the Layer called "Ground"
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
         respawnPosition = transform.position;
 
         activeMoveSpeed = moveSpeed;
+
+        canMove = true;
     }
 
     // Update is called once per frame
@@ -46,33 +49,35 @@ public class PlayerController : MonoBehaviour
         //check if the player is in contact with the ground, by checking if the radius we have specified to check is in contact with the ground
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        //Only allow player control if they are not currently being knocked back
-        if (knockbackCounter <= 0)
+        if (canMove)
         {
-            if (invincibilityCounter <= 0)
+            //Only allow player control if they are not currently being knocked back
+            if (knockbackCounter <= 0)
             {
-                levelManager.invincible = false;
+                if (invincibilityCounter <= 0)
+                {
+                    levelManager.invincible = false;
+                }
+                else
+                {
+                    invincibilityCounter -= Time.deltaTime;
+                }
+
+                HandlePlayerInput();
             }
             else
             {
-                invincibilityCounter -= Time.deltaTime;
-                Debug.Log($"Player has {invincibilityCounter} of invincibility remaining");
-            }
+                knockbackCounter -= Time.deltaTime;
 
-            HandlePlayerInput();
-        }
-        else
-        {
-            knockbackCounter -= Time.deltaTime;
-
-            if (transform.localScale.x > 0)
-            {
-                myRigidBody.velocity = new Vector3(-knockbackForce, (knockbackForce / 5) * 3, 0f);
-            }
-            else
-            {
-                myRigidBody.velocity = new Vector3(knockbackForce, (knockbackForce / 5) * 3, 0f);
-            }           
+                if (transform.localScale.x > 0)
+                {
+                    myRigidBody.velocity = new Vector3(-knockbackForce, (knockbackForce / 5) * 3, 0f);
+                }
+                else
+                {
+                    myRigidBody.velocity = new Vector3(knockbackForce, (knockbackForce / 5) * 3, 0f);
+                }
+            } 
         }
 
         //Sets up animator

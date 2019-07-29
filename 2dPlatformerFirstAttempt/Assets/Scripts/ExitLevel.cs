@@ -6,24 +6,51 @@ using UnityEngine.SceneManagement;
 public class ExitLevel : MonoBehaviour
 {
     public string levelToLoad;
+    private PlayerController thePlayer;
+    private CameraController theCamera;
+    private LevelManager levelManager;
+    public float waitToMove;
+    public float waitToLoad;
+    private bool movePlayer;
 
     // Start is called before the first frame update
     public void Start()
     {
-        
+        levelManager = FindObjectOfType<LevelManager>();
+        thePlayer = FindObjectOfType<PlayerController>();
+        theCamera = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        
+        if (movePlayer)
+        {
+            thePlayer.myRigidBody.velocity = new Vector3(thePlayer.moveSpeed, 0f, 0f);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            SceneManager.LoadScene(levelToLoad);
+            StartCoroutine("LevelEndCo");
         }
+    }
+
+    public IEnumerator LevelEndCo()
+    {
+        thePlayer.canMove = false;
+        theCamera.followTarget = false;
+        levelManager.invincible = true;
+        thePlayer.myRigidBody.velocity = Vector3.zero;
+
+        yield return new WaitForSeconds(waitToMove);        
+        
+        movePlayer = true;
+
+        yield return new WaitForSeconds(waitToLoad);
+
+        SceneManager.LoadScene(levelToLoad);
     }
 }
