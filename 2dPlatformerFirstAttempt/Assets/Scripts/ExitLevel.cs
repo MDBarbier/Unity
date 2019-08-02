@@ -12,6 +12,8 @@ public class ExitLevel : MonoBehaviour
     public float waitToMove;
     public float waitToLoad;
     private bool movePlayer;
+    public Sprite openLevelEndFlag;
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     public void Start()
@@ -34,12 +36,15 @@ public class ExitLevel : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            spriteRenderer.sprite= openLevelEndFlag;
             StartCoroutine("LevelEndCo");
         }
     }
 
     public IEnumerator LevelEndCo()
     {
+        StartCoroutine(FadeOut(levelManager.levelMusic, 2));        
+        levelManager.levelMusic.Stop();       
         thePlayer.canMove = false;
         theCamera.followTarget = false;
         levelManager.invincible = true;
@@ -48,9 +53,26 @@ public class ExitLevel : MonoBehaviour
         yield return new WaitForSeconds(waitToMove);        
         
         movePlayer = true;
+        levelManager.victorySound.Play();
 
         yield return new WaitForSeconds(waitToLoad);
 
+        levelManager.blackScreen.gameObject.SetActive(true);
         SceneManager.LoadScene(levelToLoad);
+    }
+
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
     }
 }

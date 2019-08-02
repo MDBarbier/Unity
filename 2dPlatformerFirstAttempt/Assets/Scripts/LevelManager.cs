@@ -28,10 +28,13 @@ public class LevelManager : MonoBehaviour
     private int progressToNewLife;
     public AudioSource levelMusic;
     public AudioSource gameOverMusic;
+    public AudioSource victorySound;
+    public Image blackScreen;
 
     // Start is called before the first frame update
     public void Start() 
     {
+        blackScreen.gameObject.SetActive(true);
         thePlayer = FindObjectOfType<PlayerController>();
         scoreText.text = "Score: 0000";
         currentHealth = 6;
