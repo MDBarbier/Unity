@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     internal bool startedRespawn = false;
     public ResetOnRespawn[] resetOnRespawns;
     public bool invincible;
-    private int currentLives;
+    internal int currentLives;
     public int startingLives;
     public Text livesText;
     public GameObject gameOverScreen;
@@ -36,11 +36,16 @@ public class LevelManager : MonoBehaviour
     {
         blackScreen.gameObject.SetActive(true);
         thePlayer = FindObjectOfType<PlayerController>();
-        scoreText.text = "Score: 0000";
+        
         currentHealth = 6;
-        resetOnRespawns = FindObjectsOfType<ResetOnRespawn>();
-        currentLives = startingLives;
+        resetOnRespawns = FindObjectsOfType<ResetOnRespawn>();                
+
+        //Check player prefs for coins & lives
+        currentLives = PlayerPrefs.GetInt("lives", startingLives); //Could also use if (PlayerPrefs.HasKey("lives")) {...}
+        coinCount = PlayerPrefs.GetInt("coins", 0);
+
         livesText.text = $"x {currentLives}";
+        scoreText.text = $"Score: {coinCount.ToString().PadLeft(4,'0')}";
     }
 
     // Update is called once per frame

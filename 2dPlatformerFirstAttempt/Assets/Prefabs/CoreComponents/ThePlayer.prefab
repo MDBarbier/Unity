@@ -185,7 +185,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.99}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &7191581341436613445
 Rigidbody2D:
@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpSpeed: 12
+  canMove: 0
   groundCheck: {fileID: 7191581341436613496}
   groundCheckRadius: 0.51
   whatIsGround:

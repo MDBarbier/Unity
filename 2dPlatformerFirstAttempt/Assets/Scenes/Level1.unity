@@ -5448,6 +5448,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7128682668741327800, guid: f9fc5a2f3e48f9245bc3042440c60984,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128682668741327800, guid: f9fc5a2f3e48f9245bc3042440c60984,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.273
+      objectReference: {fileID: 0}
     - target: {fileID: 2109771701872833827, guid: f9fc5a2f3e48f9245bc3042440c60984,
         type: 3}
       propertyPath: m_IsActive
@@ -5523,16 +5533,6 @@ PrefabInstance:
       propertyPath: blackScreen
       value: 
       objectReference: {fileID: 1819843079}
-    - target: {fileID: 7128682668741327800, guid: f9fc5a2f3e48f9245bc3042440c60984,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7128682668741327800, guid: f9fc5a2f3e48f9245bc3042440c60984,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.273
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9fc5a2f3e48f9245bc3042440c60984, type: 3}
 --- !u!1001 &7191581341048003687

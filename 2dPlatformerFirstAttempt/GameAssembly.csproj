@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\FadeScreenIn.cs" />
      <Compile Include="Assets\Scripts\HealthPickup.cs" />
      <Compile Include="Assets\Scripts\HurtPlayer.cs" />
+     <Compile Include="Assets\Scripts\LevelDoorScript.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\MovingObject.cs" />
      <Compile Include="Assets\Scripts\OozeController.cs" />

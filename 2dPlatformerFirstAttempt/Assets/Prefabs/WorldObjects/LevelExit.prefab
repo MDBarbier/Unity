@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afdc7f3b61455247b9df7d1d25bb26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Level2
+  levelToLoad: LevelSelect
   waitToMove: 1
   waitToLoad: 2
+  openLevelEndFlag: {fileID: 0}
+  spriteRenderer: {fileID: 0}

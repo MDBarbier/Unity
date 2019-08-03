@@ -36,22 +36,26 @@ public class ExitLevel : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            spriteRenderer.sprite= openLevelEndFlag;
+            spriteRenderer.sprite = openLevelEndFlag;
             StartCoroutine("LevelEndCo");
         }
     }
 
     public IEnumerator LevelEndCo()
     {
-        StartCoroutine(FadeOut(levelManager.levelMusic, 2));        
-        levelManager.levelMusic.Stop();       
+        StartCoroutine(FadeOut(levelManager.levelMusic, 2));
+        levelManager.levelMusic.Stop();
         thePlayer.canMove = false;
         theCamera.followTarget = false;
         levelManager.invincible = true;
         thePlayer.myRigidBody.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(waitToMove);        
-        
+        PlayerPrefs.SetInt("coins", levelManager.coinCount);
+        PlayerPrefs.SetInt("lives", levelManager.currentLives);
+
+
+        yield return new WaitForSeconds(waitToMove);
+
         movePlayer = true;
         levelManager.victorySound.Play();
 
