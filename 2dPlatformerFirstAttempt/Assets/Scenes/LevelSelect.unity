@@ -225,6 +225,21 @@ PrefabInstance:
       propertyPath: levelToLoad
       value: Level2
       objectReference: {fileID: 0}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorTop
+      value: 
+      objectReference: {fileID: 1785362740}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorBottom
+      value: 
+      objectReference: {fileID: 835877082}
     - target: {fileID: 5609573659644173615, guid: b7b07b0e4fbf98b4cad350445285c992,
         type: 3}
       propertyPath: m_Text
@@ -245,6 +260,16 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6731613423682319889, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: m_Name
+      value: door_top
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591507121052831315, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: m_Name
+      value: door_bottom
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b07b0e4fbf98b4cad350445285c992, type: 3}
 --- !u!4 &477241126 stripped
@@ -260,11 +285,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243552863}
     m_Modifications:
-    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
-        type: 3}
-      propertyPath: m_Name
-      value: Ground 3 x 7 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 8257350150172091462, guid: 16757b7bbf3695d47b38b4cdbb991a45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -320,6 +340,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
+        type: 3}
+      propertyPath: m_Name
+      value: Ground 3 x 7 (2)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16757b7bbf3695d47b38b4cdbb991a45, type: 3}
 --- !u!1001 &703738316
@@ -329,11 +354,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243552863}
     m_Modifications:
-    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
-        type: 3}
-      propertyPath: m_Name
-      value: Ground 3 x 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8257350150172091462, guid: 16757b7bbf3695d47b38b4cdbb991a45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -389,6 +409,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
+        type: 3}
+      propertyPath: m_Name
+      value: Ground 3 x 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16757b7bbf3695d47b38b4cdbb991a45, type: 3}
 --- !u!1 &740579893 stripped
@@ -396,6 +421,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7191581341436613497, guid: c041ae017b71ea74b8eb4e62e406bb93,
     type: 3}
   m_PrefabInstance: {fileID: 1671139228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &835877082 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8736369063297903938, guid: b7b07b0e4fbf98b4cad350445285c992,
+    type: 3}
+  m_PrefabInstance: {fileID: 430729774}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &867524834
 PrefabInstance:
@@ -546,6 +577,12 @@ PrefabInstance:
       objectReference: {fileID: 740579893}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdbd01e0120e9654488083b3a8dbe7c9, type: 3}
+--- !u!212 &1375060430 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8736369063297903938, guid: b7b07b0e4fbf98b4cad350445285c992,
+    type: 3}
+  m_PrefabInstance: {fileID: 4213619335143205641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1637220192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -553,11 +590,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243552863}
     m_Modifications:
-    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
-        type: 3}
-      propertyPath: m_Name
-      value: Ground 3 x 7 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8257350150172091462, guid: 16757b7bbf3695d47b38b4cdbb991a45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -612,6 +644,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
+        type: 3}
+      propertyPath: m_Name
+      value: Ground 3 x 7 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16757b7bbf3695d47b38b4cdbb991a45, type: 3}
@@ -699,6 +736,18 @@ PrefabInstance:
       objectReference: {fileID: 6200000, guid: 58f5132ba3aa6734f8ccb16a3687c759, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c041ae017b71ea74b8eb4e62e406bb93, type: 3}
+--- !u!212 &1785362740 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5551839076443032311, guid: b7b07b0e4fbf98b4cad350445285c992,
+    type: 3}
+  m_PrefabInstance: {fileID: 430729774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1995099535 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5551839076443032311, guid: b7b07b0e4fbf98b4cad350445285c992,
+    type: 3}
+  m_PrefabInstance: {fileID: 4213619335143205641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4213619335143205641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -766,6 +815,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorBottomOpen
+      value: 
+      objectReference: {fileID: -637626799924230617, guid: 47ee6beb0866233499ace655a00169a3,
+        type: 3}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorTopOpen
+      value: 
+      objectReference: {fileID: 7715051395674374481, guid: 47ee6beb0866233499ace655a00169a3,
+        type: 3}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorBottomClosed
+      value: 
+      objectReference: {fileID: -3886971374404680400, guid: 47ee6beb0866233499ace655a00169a3,
+        type: 3}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorTopClosed
+      value: 
+      objectReference: {fileID: 7286452030171644687, guid: 47ee6beb0866233499ace655a00169a3,
+        type: 3}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorTop
+      value: 
+      objectReference: {fileID: 1995099535}
+    - target: {fileID: 6127446865926474777, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: doorBottom
+      value: 
+      objectReference: {fileID: 1375060430}
     - target: {fileID: 5609573659644173615, guid: b7b07b0e4fbf98b4cad350445285c992,
         type: 3}
       propertyPath: m_Color.r
@@ -780,6 +863,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731613423682319889, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: m_Name
+      value: door_top
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591507121052831315, guid: b7b07b0e4fbf98b4cad350445285c992,
+        type: 3}
+      propertyPath: m_Name
+      value: door_bottom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b07b0e4fbf98b4cad350445285c992, type: 3}

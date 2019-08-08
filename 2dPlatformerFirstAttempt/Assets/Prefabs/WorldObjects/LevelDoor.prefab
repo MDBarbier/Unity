@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.06, y: 1.64}
+  m_Size: {x: 1.39, y: 1.64}
   m_EdgeRadius: 0
 --- !u!114 &6127446865926474777
 MonoBehaviour:
@@ -175,6 +175,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: Level1
+  doorUnlocked: 0
+  doorBottomOpen: {fileID: -637626799924230617, guid: 47ee6beb0866233499ace655a00169a3,
+    type: 3}
+  doorTopOpen: {fileID: 7715051395674374481, guid: 47ee6beb0866233499ace655a00169a3,
+    type: 3}
+  doorBottomClosed: {fileID: -3886971374404680400, guid: 47ee6beb0866233499ace655a00169a3,
+    type: 3}
+  doorTopClosed: {fileID: 7286452030171644687, guid: 47ee6beb0866233499ace655a00169a3,
+    type: 3}
+  doorTop: {fileID: 0}
+  doorBottom: {fileID: 0}
 --- !u!1 &6600572685665433974
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +278,7 @@ GameObject:
   - component: {fileID: 6121686956353257851}
   - component: {fileID: 5551839076443032311}
   m_Layer: 0
-  m_Name: sprites_166
+  m_Name: door_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,7 +359,7 @@ GameObject:
   - component: {fileID: 7962613648054627105}
   - component: {fileID: 8736369063297903938}
   m_Layer: 0
-  m_Name: sprites_167
+  m_Name: door_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

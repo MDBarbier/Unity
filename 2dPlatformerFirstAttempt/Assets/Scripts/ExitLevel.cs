@@ -14,6 +14,7 @@ public class ExitLevel : MonoBehaviour
     private bool movePlayer;
     public Sprite openLevelEndFlag;
     public SpriteRenderer spriteRenderer;
+    public string levelToUnlock;
 
     // Start is called before the first frame update
     public void Start()
@@ -52,7 +53,7 @@ public class ExitLevel : MonoBehaviour
 
         PlayerPrefs.SetInt("coins", levelManager.coinCount);
         PlayerPrefs.SetInt("lives", levelManager.currentLives);
-
+        PlayerPrefs.SetInt(levelToUnlock, 1);
 
         yield return new WaitForSeconds(waitToMove);
 
