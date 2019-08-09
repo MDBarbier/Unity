@@ -44,7 +44,7 @@ public class LevelDoorScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (Input.GetButtonDown("Jump") && doorUnlocked)
+            if ((Input.GetButtonDown("Vertical")) && doorUnlocked)
             {
                 SceneManager.LoadScene(levelToLoad);
             }
