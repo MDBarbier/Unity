@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\ExitLevel.cs" />
      <Compile Include="Assets\Scripts\ExtraLifeScript.cs" />
      <Compile Include="Assets\Scripts\FadeScreenIn.cs" />
+     <Compile Include="Assets\Scripts\GameOver.cs" />
      <Compile Include="Assets\Scripts\HealthPickup.cs" />
      <Compile Include="Assets\Scripts\HurtPlayer.cs" />
      <Compile Include="Assets\Scripts\LevelDoorScript.cs" />

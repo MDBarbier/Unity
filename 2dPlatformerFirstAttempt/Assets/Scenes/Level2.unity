@@ -127,6 +127,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7240704900180444237, guid: f9fc5a2f3e48f9245bc3042440c60984,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7128682669377343125, guid: f9fc5a2f3e48f9245bc3042440c60984,
         type: 3}
       propertyPath: m_Name
@@ -187,6 +192,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7128682668734626198, guid: f9fc5a2f3e48f9245bc3042440c60984,
+        type: 3}
+      propertyPath: gameOverScreenButtons
+      value: 
+      objectReference: {fileID: 650030297}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9fc5a2f3e48f9245bc3042440c60984, type: 3}
 --- !u!1001 &302767519
@@ -263,6 +273,12 @@ PrefabInstance:
       objectReference: {fileID: 1570336446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdbd01e0120e9654488083b3a8dbe7c9, type: 3}
+--- !u!1 &650030297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7240704900180444237, guid: f9fc5a2f3e48f9245bc3042440c60984,
+    type: 3}
+  m_PrefabInstance: {fileID: 52176331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1146558298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -270,11 +286,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
-        type: 3}
-      propertyPath: m_Name
-      value: Ground 3 x 7 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8257350150172091462, guid: 16757b7bbf3695d47b38b4cdbb991a45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -329,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
+        type: 3}
+      propertyPath: m_Name
+      value: Ground 3 x 7 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16757b7bbf3695d47b38b4cdbb991a45, type: 3}
@@ -414,11 +430,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
-        type: 3}
-      propertyPath: m_Name
-      value: Ground 3 x 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8257350150172091462, guid: 16757b7bbf3695d47b38b4cdbb991a45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -473,6 +484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152143888703632663, guid: 16757b7bbf3695d47b38b4cdbb991a45,
+        type: 3}
+      propertyPath: m_Name
+      value: Ground 3 x 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16757b7bbf3695d47b38b4cdbb991a45, type: 3}

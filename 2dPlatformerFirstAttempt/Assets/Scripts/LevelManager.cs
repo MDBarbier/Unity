@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     public int startingLives;
     public Text livesText;
     public GameObject gameOverScreen;
+    public GameObject gameOverScreenButtons;
     private int progressToNewLife;
     public AudioSource levelMusic;
     public AudioSource gameOverMusic;
@@ -68,6 +69,7 @@ public class LevelManager : MonoBehaviour
             levelMusic.Stop();
             gameOverMusic.Play();
             gameOverScreen.SetActive(true);
+            gameOverScreenButtons.SetActive(true);
             thePlayer.gameObject.SetActive(false);
         }
         else
