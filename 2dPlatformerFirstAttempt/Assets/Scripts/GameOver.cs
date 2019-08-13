@@ -32,6 +32,8 @@ public class GameOver : MonoBehaviour
 
     public void LevelSelect()
     {
+        PlayerPrefs.SetInt("coins", 0);
+        PlayerPrefs.SetInt("lives", levelManager.startingLives);
         SceneManager.LoadScene(levelSelect);
     }
 

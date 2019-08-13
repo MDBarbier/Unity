@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,11 +10,17 @@ public class MainMenu : MonoBehaviour
     public string levelSelect;
     public string[] lockedLevels;
     public int startingLives;
+    public Button continueButton;    
 
     // Start is called before the first frame update
     public void Start()
     {
-        
+        var lives = PlayerPrefs.GetInt("lives", 0);
+
+        if (lives <= 0)
+        {
+            continueButton.enabled = false;
+        }
     }
 
     // Update is called once per frame
