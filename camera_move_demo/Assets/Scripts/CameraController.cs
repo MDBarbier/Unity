@@ -11,20 +11,59 @@ public class CameraController : MonoBehaviour
     public float minCameraHeight;
     public float maxCameraHeight;
 
-    private Quaternion rotation;
-
+    private Quaternion initialRotation;
+    private float initialHeight;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        rotation = Camera.main.transform.rotation;
+        initialRotation = Camera.main.transform.rotation;
+        initialHeight = Camera.main.transform.position.y;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         MoveCamera();
         RotateCamera();
+        ResetCamera();
+    }
+
+    /// <summary>
+    /// Handles panning movement both by the keyboard and the mouse being near the edge of the screen
+    /// </summary>
+    private void MoveCamera()
+    {
+        ScreenEdgePan();
+        LateralKeyboardMovement();
+        VerticalKeyboardMovement();
+        MouseScrollWheelMovement();
+        KeyboardHorizontalRotation();
+        KeyboardVerticalRotation();
+        LateralKeyboardMovementInDirectionOfCamera();
+    }
+
+    private void LateralKeyboardMovementInDirectionOfCamera()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {            
+            Camera.main.transform.Translate(Vector3.forward * cameraMoveSpeed);
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            Camera.main.transform.Translate(Vector3.left * cameraMoveSpeed);
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            Camera.main.transform.Translate(Vector3.back * cameraMoveSpeed);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            Camera.main.transform.Translate(Vector3.right * cameraMoveSpeed);
+        }
     }
 
     private void RotateCamera()
@@ -44,15 +83,46 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Handles panning movement both by the keyboard and the mouse being near the edge of the screen
-    /// </summary>
-    private void MoveCamera()
+    private void KeyboardVerticalRotation()
     {
-        ScreenEdgePan();
-        LateralKeyboardMovement();
-        VerticalKeyboardMovement();
-        MouseScrollWheelMovement();
+        Vector3 origin = Camera.main.transform.eulerAngles;
+        Vector3 destination = origin;
+
+        if (Input.GetKey(KeyCode.Insert))
+        {
+            destination.x -= rotationAmount;            
+        }
+
+        if (Input.GetKey(KeyCode.Delete))
+        {
+            destination.x += rotationAmount;            
+        }
+
+        if (destination != origin)
+        {
+            Camera.main.transform.eulerAngles = Vector3.MoveTowards(origin, destination, Time.deltaTime * rotationSpeed);
+        }
+    }
+
+    private void KeyboardHorizontalRotation()
+    {
+        Vector3 origin = Camera.main.transform.eulerAngles;
+        Vector3 destination = origin;        
+
+        if (Input.GetKey(KeyCode.Home))
+        {
+            destination.y -= rotationAmount;         
+        }
+
+        if (Input.GetKey(KeyCode.End))
+        {
+            destination.y += rotationAmount;            
+        }
+
+        if (destination != origin)
+        {
+            Camera.main.transform.eulerAngles = Vector3.MoveTowards(origin, destination, Time.deltaTime * rotationSpeed);
+        }
     }
 
     private void MouseScrollWheelMovement()
@@ -127,5 +197,14 @@ public class CameraController : MonoBehaviour
         Vector3 newCameraPosition = new Vector3(moveX, cameraHeight, moveZ);
 
         Camera.main.transform.position = newCameraPosition;
+    }
+
+    private void ResetCamera()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            Camera.main.transform.rotation = initialRotation;
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, initialHeight, Camera.main.transform.position.z);
+        }
     }
 }

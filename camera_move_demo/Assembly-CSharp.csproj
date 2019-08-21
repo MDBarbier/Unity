@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\MoveSphere.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/matt/Documents/GitHub/Unity/camera_move_demo/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
