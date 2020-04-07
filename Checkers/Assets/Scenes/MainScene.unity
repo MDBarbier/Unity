@@ -3239,6 +3239,97 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756474525}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &768398544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768398546}
+  - component: {fileID: 768398549}
+  - component: {fileID: 768398548}
+  - component: {fileID: 768398547}
+  - component: {fileID: 768398545}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &768398545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768398544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa2c8396354ed24ea5df1be650e1ede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  legalMoves: []
+--- !u!4 &768398546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768398544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.1644287, y: -2.9904828, z: -0.19307524}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768398547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768398544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18bb29ad4eeaa6040a6cf3e5ac56375c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &768398548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768398544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c9bead17ac2ad42a99b92bf45eb762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieces: []
+  whitePieceMaterial: {fileID: 2100000, guid: e9c0d7a6199e72f42b7bd735568f384b, type: 2}
+  blackPieceMaterial: {fileID: 2100000, guid: 035f03ecdad75254bbef055ca3c20c36, type: 2}
+  selectedWhitePieceMaterial: {fileID: 2100000, guid: 3f3bdffc29d0ae940983cae9b11dc7ce,
+    type: 2}
+  selectedBlackPieceMaterial: {fileID: 2100000, guid: c3684a957108f67489c1392020739204,
+    type: 2}
+--- !u!114 &768398549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768398544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35356dd3940c67045b553ab662d2e9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerColour: 1
 --- !u!1 &812947769
 GameObject:
   m_ObjectHideFlags: 0
@@ -4015,8 +4106,6 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
-  - component: {fileID: 963194230}
-  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4108,37 +4197,6 @@ MonoBehaviour:
   rotationAmount: 500
   minCameraHeight: 3
   maxCameraHeight: 20
---- !u!114 &963194230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18bb29ad4eeaa6040a6cf3e5ac56375c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &963194231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c9bead17ac2ad42a99b92bf45eb762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pieces: []
-  whitePieceMaterial: {fileID: 2100000, guid: e9c0d7a6199e72f42b7bd735568f384b, type: 2}
-  blackPieceMaterial: {fileID: 2100000, guid: 035f03ecdad75254bbef055ca3c20c36, type: 2}
-  selectedWhitePieceMaterial: {fileID: 2100000, guid: 3f3bdffc29d0ae940983cae9b11dc7ce,
-    type: 2}
-  selectedBlackPieceMaterial: {fileID: 2100000, guid: c3684a957108f67489c1392020739204,
-    type: 2}
 --- !u!1001 &973653791
 PrefabInstance:
   m_ObjectHideFlags: 0
