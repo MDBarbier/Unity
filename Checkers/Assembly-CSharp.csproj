@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DetectMouse.cs" />
+    <Compile Include="Assets\Scripts\SelectPiece.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/matth/Documents/github/Unity/Checkers/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

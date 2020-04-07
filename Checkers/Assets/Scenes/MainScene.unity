@@ -4016,6 +4016,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4119,6 +4120,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bb29ad4eeaa6040a6cf3e5ac56375c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c9bead17ac2ad42a99b92bf45eb762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieces: []
+  whitePieceMaterial: {fileID: 2100000, guid: e9c0d7a6199e72f42b7bd735568f384b, type: 2}
+  blackPieceMaterial: {fileID: 2100000, guid: 035f03ecdad75254bbef055ca3c20c36, type: 2}
+  selectedWhitePieceMaterial: {fileID: 2100000, guid: 3f3bdffc29d0ae940983cae9b11dc7ce,
+    type: 2}
+  selectedBlackPieceMaterial: {fileID: 2100000, guid: c3684a957108f67489c1392020739204,
+    type: 2}
 --- !u!1001 &973653791
 PrefabInstance:
   m_ObjectHideFlags: 0
