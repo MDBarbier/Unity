@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -12,8 +13,14 @@ public class SelectPiece : MonoBehaviour
     public Material blackPieceMaterial;
     public Material selectedWhitePieceMaterial;
     public Material selectedBlackPieceMaterial;
-    private GameObject[] legalMoves;
+    public Material highlightedSquare;
+    public Material reqSquare;
+    public Material whiteSquare;
+    private Dictionary<GameObject, List<GameObject>> legalMoves;
     private GameObject selectedPiece;
+
+    //Key is the column and square index, value is value tuple of the original material and the gameobject the legal move applies to
+    private Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>> storedSquareColours;
 
     // Start is called before the first frame update
     public void Start()
@@ -21,6 +28,7 @@ public class SelectPiece : MonoBehaviour
         detectMouse = FindObjectOfType<DetectMouse>();
         sceneManager = FindObjectOfType<SceneManager>();
         calculateLegalMoves = FindObjectOfType<CalculateLegalMoves>();
+        storedSquareColours = new Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>>();
 
         //Get all the white and black pieces and add them to the pieces array
         var whitePieces = GameObject.FindGameObjectsWithTag("WhitePieces");
@@ -37,18 +45,35 @@ public class SelectPiece : MonoBehaviour
         if (detectMouse.clickDetectedOn == null)
         {
             return;
-        }        
+        }
 
-        if (!detectMouse.clickDetectedOn.gameObject.name.Contains("Square") && 
+        if (!detectMouse.clickDetectedOn.gameObject.name.Contains("Square") &&
             detectMouse.clickDetectedOn.gameObject.name != "Board" &&
             detectMouse.clickDetectedOn.gameObject.tag.Contains(sceneManager.PlayerColour.ToString()))
         {
             //Assign the appropriate "selected" material to the selected piece
-            detectMouse.clickDetectedOn.gameObject.GetComponent<MeshRenderer>().material = GetCorrectMaterial(detectMouse.clickDetectedOn.gameObject, true);            
+            detectMouse.clickDetectedOn.gameObject.GetComponent<MeshRenderer>().material = GetCorrectMaterial(detectMouse.clickDetectedOn.gameObject, true);
 
             if (selectedPiece != detectMouse.clickDetectedOn.gameObject || legalMoves == null)
             {
                 legalMoves = calculateLegalMoves.GetLegalMoves(detectMouse.clickDetectedOn.gameObject);
+
+                //highlight available moves
+                foreach (var column in legalMoves)
+                {
+                    foreach (var square in column.Value)
+                    {
+                        var columnIndex = int.Parse(column.Key.name.Split('_')[1]);
+                        var squareIndex = int.Parse(square.name.Split('_')[1]);
+
+                        if (!storedSquareColours.ContainsKey((columnIndex, squareIndex)))
+                        {
+                            storedSquareColours.Add((columnIndex, squareIndex), (square.gameObject.GetComponent<MeshRenderer>().material, detectMouse.clickDetectedOn.gameObject));
+                        }
+
+                        square.gameObject.GetComponent<MeshRenderer>().material = highlightedSquare;
+                    }
+                }
             }
 
             //Assign the "regular" unit material to all other pieces
@@ -65,13 +90,47 @@ public class SelectPiece : MonoBehaviour
 
             //Set the selected piece for comparison on next update
             selectedPiece = detectMouse.clickDetectedOn.gameObject;
+
+            //Set all squares that are not legal moves for the currently selected piece back to their proper material
+            foreach (var storedMaterial in new Dictionary<(int, int), (Material, GameObject)>(storedSquareColours))
+            {
+                //Is the game object the stored value relates to the selected piece?
+                if (storedMaterial.Value.Item2 == selectedPiece)
+                {
+                    continue;
+                }
+
+                //Get the squares game object for this iteration
+                var columnGo = GameObject.Find("Column_" + storedMaterial.Key.Item1);
+                var squareGo = columnGo.transform.Find("Square_" + storedMaterial.Key.Item2).gameObject;
+
+                //If the legalMoves Dict contains the same square, do not reset it
+                var legalMovesMatches = legalMoves.Where(a => a.Key == columnGo && a.Value.Contains(squareGo)).Count();
+
+                if (legalMovesMatches <= 0)
+                {
+                    squareGo.GetComponent<MeshRenderer>().material = storedMaterial.Value.Item1;
+                    storedSquareColours.Remove(storedMaterial.Key);
+                }
+            }
         }
         else
         {
             //A square or the board has been clicked so assign the "regular" unit material to all pieces
             foreach (var unit in pieces)
             {
-                unit.gameObject.GetComponent<MeshRenderer>().material = GetCorrectMaterial(unit.gameObject, false);                
+                unit.gameObject.GetComponent<MeshRenderer>().material = GetCorrectMaterial(unit.gameObject, false);
+            }
+
+            //Set all squares that are not legal moves for the currently selected piece back to their proper material
+            foreach (var storedMaterial in new Dictionary<(int, int), (Material, GameObject)>(storedSquareColours))
+            {
+                //Get the squares game object for this iteration
+                var columnGo = GameObject.Find("Column_" + storedMaterial.Key.Item1);
+                var squareGo = columnGo.transform.Find("Square_" + storedMaterial.Key.Item2).gameObject;
+                squareGo.GetComponent<MeshRenderer>().material = storedMaterial.Value.Item1;
+                storedSquareColours.Remove(storedMaterial.Key);
+                legalMoves = null;
             }
         }
 
@@ -82,8 +141,8 @@ public class SelectPiece : MonoBehaviour
         var colour = gameObject.tag.Contains("White") ? "white" : "black";
 
         if (colour == "white")
-        { 
-            return selected ? selectedWhitePieceMaterial : whitePieceMaterial; 
+        {
+            return selected ? selectedWhitePieceMaterial : whitePieceMaterial;
         }
         else
         {

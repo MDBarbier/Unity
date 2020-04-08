@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float rotationAmount;
     public float minCameraHeight;
     public float maxCameraHeight;
-
+    public bool panEnabled;
     private Quaternion initialRotation;
     private float initialHeight;
 
@@ -33,7 +33,10 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void MoveCamera()
     {
-        ScreenEdgePan();
+        if (panEnabled)
+        {
+            ScreenEdgePan(); 
+        }
         LateralKeyboardMovement();
         VerticalKeyboardMovement();
         MouseScrollWheelMovement();
