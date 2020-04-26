@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Data;
+using UnityEngine;
 
 public class DetectMouse : MonoBehaviour
 {
@@ -29,6 +30,13 @@ public class DetectMouse : MonoBehaviour
                         var parent = hit.transform.parent.gameObject;
                         var colour = hit.transform.tag == "WhitePieces" ? "White" : "Black";
                         Debug.Log($"The piece clicked was {colour}, and is in {parent.name}, {parent.transform.parent.name}");
+                    }
+
+                    if (hit.transform.tag == "Square")
+                    {
+                        clickDetectedOn = hit.transform.gameObject;
+                        var column = clickDetectedOn.transform.parent.gameObject;
+                        Debug.Log($"The square clicked was {clickDetectedOn.name}, {column.name}");
                     }
 
                     clickDetectedOn = hit.transform.gameObject;

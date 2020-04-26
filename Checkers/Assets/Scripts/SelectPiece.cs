@@ -17,7 +17,8 @@ public class SelectPiece : MonoBehaviour
     public Material reqSquare;
     public Material whiteSquare;
     private Dictionary<GameObject, List<GameObject>> legalMoves;
-    private GameObject selectedPiece;
+    private List<GameObject> captureList;
+    private GameObject selectedPiece;    
 
     //Key is the column and square index, value is value tuple of the original material and the gameobject the legal move applies to
     private Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>> storedSquareColours;
@@ -28,7 +29,7 @@ public class SelectPiece : MonoBehaviour
         detectMouse = FindObjectOfType<DetectMouse>();
         sceneManager = FindObjectOfType<SceneManager>();
         calculateLegalMoves = FindObjectOfType<CalculateLegalMoves>();
-        storedSquareColours = new Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>>();
+        storedSquareColours = new Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>>();        
 
         //Get all the white and black pieces and add them to the pieces array
         var whitePieces = GameObject.FindGameObjectsWithTag("WhitePieces");
@@ -42,7 +43,7 @@ public class SelectPiece : MonoBehaviour
     public void Update()
     {
         //Check selected unit
-        if (detectMouse.clickDetectedOn == null)
+        if (detectMouse.clickDetectedOn == null || detectMouse.clickDetectedOn.tag == "Square")
         {
             return;
         }
@@ -56,7 +57,7 @@ public class SelectPiece : MonoBehaviour
 
             if (selectedPiece != detectMouse.clickDetectedOn.gameObject || legalMoves == null)
             {
-                legalMoves = calculateLegalMoves.GetLegalMoves(detectMouse.clickDetectedOn.gameObject);
+                (legalMoves, captureList) = calculateLegalMoves.GetLegalMoves(detectMouse.clickDetectedOn.gameObject);
 
                 //highlight available moves
                 foreach (var column in legalMoves)

@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CalculateLegalMoves.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CapturePiece.cs" />
     <Compile Include="Assets\Scripts\DetectMouse.cs" />
+    <Compile Include="Assets\Scripts\MovePiece.cs" />
     <Compile Include="Assets\Scripts\SceneManager.cs" />
     <Compile Include="Assets\Scripts\SelectPiece.cs" />
     <Reference Include="Unity.Timeline.Editor">

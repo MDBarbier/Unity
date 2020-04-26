@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WhitePieces
   - BlackPieces
+  - Square
   layers:
   - Default
   - TransparentFX

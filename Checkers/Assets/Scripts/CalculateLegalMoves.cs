@@ -7,11 +7,13 @@ using UnityEngine;
 public class CalculateLegalMoves : MonoBehaviour
 {
     public GameObject[] legalMoves;
-
-    public Dictionary<GameObject, List<GameObject>> GetLegalMoves(GameObject piece)
-    {
+    private List<GameObject> captureList;
+    
+    public ValueTuple<Dictionary<GameObject, List<GameObject>>, List<GameObject>> GetLegalMoves(GameObject piece)
+    {        
         var legalSquareList = new List<GameObject>();
         var legalMoveList = new Dictionary<GameObject, List<GameObject>>();
+        captureList = new List<GameObject>();
 
         //Calculate details about the piece and where it is located
         var squareName = piece.transform.parent.gameObject.name;
@@ -30,7 +32,7 @@ public class CalculateLegalMoves : MonoBehaviour
         leftResults.ToList().ForEach(x => legalMoveList.Add(x.Key, x.Value));
         rightResults.ToList().ForEach(x => legalMoveList.Add(x.Key, x.Value));                
 
-        return legalMoveList;
+        return (legalMoveList, captureList);
     }
 
     private Dictionary<GameObject, List<GameObject>> ProcessColumn(GameObject columnToProcess, int squareNumberOfSelectedPiece, int columnNumberOfSelectedPiece, string selectedPieceColour, bool increcmentColumn)
@@ -137,7 +139,7 @@ public class CalculateLegalMoves : MonoBehaviour
                     //Space is free, capture can occur
                     Debug.Log($"Piece in {moveToProcess.name}, {columnToProcess.name} would be captured!");
 
-                    //TODO Could a further piece be captured, in any diagonal direction?
+                    captureList.Add(pieceInSquare.gameObject);
                                         
                     var beyondLegalSquareList = new List<GameObject>();
                     beyondLegalSquareList.Add(beyondMove);
