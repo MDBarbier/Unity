@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,12 +7,28 @@ public class CalculateLegalMoves : MonoBehaviour
 {
     public GameObject[] legalMoves;
     private List<GameObject> captureList;
-    
+    private SceneManager sceneManager;
+
+    public void Start()
+    {
+        sceneManager = FindObjectOfType<SceneManager>();
+    }
+
+    /// <summary>
+    /// Get a list of legal moves for a piece
+    /// </summary>
+    /// <param name="piece">The game object for the piece</param>
+    /// <returns>Value tuple containing two items 1) Dictionary of legal moves (key is the GO representing the column, value is list of squares in that column, 2) list of pieces that can be captured</returns>
     public ValueTuple<Dictionary<GameObject, List<GameObject>>, List<GameObject>> GetLegalMoves(GameObject piece)
-    {        
+    {   
         var legalSquareList = new List<GameObject>();
         var legalMoveList = new Dictionary<GameObject, List<GameObject>>();
         captureList = new List<GameObject>();
+
+        if (piece.transform.tag != "WhitePieces" && piece.transform.tag != "BlackPieces")
+        {
+            throw new Exception("Cannot call method on a game object that is not a piece");
+        }
 
         //Calculate details about the piece and where it is located
         var squareName = piece.transform.parent.gameObject.name;
@@ -26,7 +41,7 @@ public class CalculateLegalMoves : MonoBehaviour
         var leftColumn = GameObject.Find($"Column_{columnNumber - 1}");
         var rightColumn = GameObject.Find($"Column_{columnNumber + 1}");
 
-        var leftResults = (ProcessColumn(leftColumn, squareNumber, columnNumber, colour, false));
+        var leftResults = ProcessColumn(leftColumn, squareNumber, columnNumber, colour, false);
         var rightResults = ProcessColumn(rightColumn , squareNumber, columnNumber, colour, true);
 
         leftResults.ToList().ForEach(x => legalMoveList.Add(x.Key, x.Value));
@@ -49,6 +64,8 @@ public class CalculateLegalMoves : MonoBehaviour
             {
                 squares[i] = columnToProcess.gameObject.transform.Find("Square_" + i.ToString()).gameObject;
             }
+
+            //TODO only allow forward moves for "single" piece
             
             if (squareNumberOfSelectedPiece + 1 > 7 || squareNumberOfSelectedPiece + 1 < 0)
             {
@@ -136,8 +153,8 @@ public class CalculateLegalMoves : MonoBehaviour
                 var beyondMove = incrementSquare ? squares[squareNumberOfSelectedPiece + 2] : squares[squareNumberOfSelectedPiece - 2];
                 if (beyondMove.gameObject.transform.childCount == 0)
                 {
-                    //Space is free, capture can occur
-                    Debug.Log($"Piece in {moveToProcess.name}, {columnToProcess.name} would be captured!");
+                    if (sceneManager.DebugMode)
+                        Debug.Log($"Piece in {moveToProcess.name}, {columnToProcess.name} would be captured!");
 
                     captureList.Add(pieceInSquare.gameObject);
                                         

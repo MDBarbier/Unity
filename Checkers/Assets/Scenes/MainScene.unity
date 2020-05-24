@@ -3370,6 +3370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bb29ad4eeaa6040a6cf3e5ac56375c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftMouseClick: 0
 --- !u!114 &768398548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3392,6 +3393,7 @@ MonoBehaviour:
   highlightedSquare: {fileID: 2100000, guid: ac6a44b7dc3716544b75a398deca17c6, type: 2}
   reqSquare: {fileID: 2100000, guid: 4402b94e4e3a3274d82757bd3248c094, type: 2}
   whiteSquare: {fileID: 2100000, guid: 916a56d433efa824db5dbabc88f2c29b, type: 2}
+  selectedPiece: {fileID: 0}
 --- !u!114 &768398549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3405,6 +3407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerColour: 1
+  DebugMode: 0
 --- !u!114 &768398550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8205,7 +8208,7 @@ PrefabInstance:
     - target: {fileID: 8017988165042832043, guid: 3e0295a25fba2a54d94eb8a9466b5b02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 8017988165042832043, guid: 3e0295a25fba2a54d94eb8a9466b5b02,
         type: 3}
