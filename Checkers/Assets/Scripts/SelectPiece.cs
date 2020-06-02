@@ -21,7 +21,7 @@ public class SelectPiece : MonoBehaviour
     public GameObject selectedPiece;    
 
     //Key is the column and square index, value is value tuple of the original material and the gameobject the legal move applies to
-    private Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>> storedSquareColours;
+    internal Dictionary<ValueTuple<int, int>, ValueTuple<Material, GameObject>> storedSquareColours;
 
     // Start is called before the first frame update
     public void Start()

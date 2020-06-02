@@ -135,7 +135,7 @@ public class CalculateLegalMoves : MonoBehaviour
         bool incrementSquare)
     {
         //Check whether the square is occupied
-        if (moveToProcess.gameObject.transform.childCount > 0)
+        if (moveToProcess.gameObject.transform.childCount > 0 && moveToProcess.gameObject.transform.GetChild(0).gameObject.activeSelf)
         {
             //Check whether capture can occur
             var pieceInSquare = moveToProcess.gameObject.transform.GetChild(0);
