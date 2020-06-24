@@ -50,7 +50,8 @@ public class SelectPiece : MonoBehaviour
 
         if (!detectMouse.clickDetectedOn.gameObject.name.Contains("Square") &&
             detectMouse.clickDetectedOn.gameObject.name != "Board" &&
-            detectMouse.clickDetectedOn.gameObject.tag.Contains(sceneManager.PlayerColour.ToString()))
+            detectMouse.clickDetectedOn.gameObject.tag.Contains(sceneManager.PlayerColour.ToString()) &&
+            sceneManager.WhoseTurnIsIt == sceneManager.PlayerColour)
         {
             //Assign the appropriate "selected" material to the selected piece
             detectMouse.clickDetectedOn.gameObject.GetComponent<MeshRenderer>().material = GetCorrectMaterial(detectMouse.clickDetectedOn.gameObject, true);
@@ -114,6 +115,13 @@ public class SelectPiece : MonoBehaviour
                     storedSquareColours.Remove(storedMaterial.Key);
                 }
             }
+        }
+        else if (!detectMouse.clickDetectedOn.gameObject.name.Contains("Square") &&
+           detectMouse.clickDetectedOn.gameObject.name != "Board" &&
+           detectMouse.clickDetectedOn.gameObject.tag.Contains(sceneManager.PlayerColour.ToString()) &&
+           sceneManager.WhoseTurnIsIt != sceneManager.PlayerColour)
+        {
+            //do nothing
         }
         else
         {
