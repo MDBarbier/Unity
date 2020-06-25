@@ -173,6 +173,7 @@ public class CalculateLegalMoves : MonoBehaviour
                         return;
                     }
 
+                    //Get squares for potential beyond move
                     var beyondchildCount = GameObject.Find("Column_" + beyondColIndex).transform.childCount;
                     GameObject[] beyondSquares = new GameObject[beyondchildCount];
                     for (int i = 0; i < childCount; i++)
@@ -180,7 +181,21 @@ public class CalculateLegalMoves : MonoBehaviour
                         squares[i] = GameObject.Find("Column_" + beyondColIndex).transform.Find("Square_" + i.ToString()).gameObject;
                     }
                     var beyondMove = incrementSquare ? squares[squareNumberOfSelectedPiece + 2] : squares[squareNumberOfSelectedPiece - 2];
-                    if (beyondMove.gameObject.transform.childCount == 0)
+
+                    //Does the potential beyond space have any active children?
+                    var numChildren = beyondMove.gameObject.transform.childCount;
+                    bool hasActiveChild = false;
+                    for (int i = 0; i < numChildren; i++)
+                    {
+                        var child = beyondMove.gameObject.transform.GetChild(i).gameObject;
+
+                        if (child.activeSelf)
+                        {
+                            hasActiveChild = true;
+                        }
+                    }
+
+                    if (!hasActiveChild)
                     {
                         if (sceneManager.DebugMode)
                             Debug.Log($"Piece in {moveToProcess.name}, {columnToProcess.name} would be captured!");

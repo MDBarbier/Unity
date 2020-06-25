@@ -12,15 +12,19 @@ public class SceneManager : MonoBehaviour
     public int blackStartCol;
     private bool foundColZeroFlag = false;
     public Colours WhoseTurnIsIt;
+    BannerController bannerController;
 
     // Start is called before the first frame update
     void Start()
     {
+        bannerController = FindObjectOfType<BannerController>();
+
         //Get the starting columns for each colour
         GetStartingColumnIndexes();
 
         //Set whose turn it is initially
-        WhoseTurnIsIt = Colours.White;
+        WhoseTurnIsIt = Colours.Black;
+        ChangeWhoseTurnItIs();
     }   
 
     // Update is called once per frame
@@ -48,6 +52,8 @@ public class SceneManager : MonoBehaviour
             Debug.Log($"It is now {WhoseTurnIsIt}'s turn");
         }
 
+        string message = WhoseTurnIsIt == PlayerColour ? "Player's turn" : "CPU's turn";
+        bannerController.SetBannerMessage(message);
         return WhoseTurnIsIt;
     }
 
