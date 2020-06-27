@@ -65,7 +65,7 @@ public class AIController : MonoBehaviour
 
         if (sceneManager.PlayerColour == SceneManager.Colours.Black)
         {
-            ownedPieces = GameObject.FindGameObjectsWithTag("WhitePieces");
+            ownedPieces = GameObject.FindGameObjectsWithTag("WhitePieces").Where(a => a.activeSelf).ToArray();
 
             if (sceneManager.DebugMode)
             {
@@ -74,7 +74,7 @@ public class AIController : MonoBehaviour
         }
         else
         {
-            ownedPieces = GameObject.FindGameObjectsWithTag("BlackPieces");
+            ownedPieces = GameObject.FindGameObjectsWithTag("BlackPieces").Where(a => a.activeSelf).ToArray();
 
             if (sceneManager.DebugMode)
             {

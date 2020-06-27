@@ -64,7 +64,7 @@ public class CalculateLegalMoves : MonoBehaviour
             {
                 squares[i] = columnToProcess.gameObject.transform.Find("Square_" + i.ToString()).gameObject;
             }
-            
+
             bool zeroStart = false;
             if (selectedPieceColour.ToLower() == "black")
             {
@@ -135,7 +135,7 @@ public class CalculateLegalMoves : MonoBehaviour
                 {
                     legalMoveList.Add(columnToProcess, new List<GameObject>(legalSquareList));
                 }
-            }            
+            }
         }
 
         return legalMoveList;
@@ -155,63 +155,80 @@ public class CalculateLegalMoves : MonoBehaviour
         bool incrementSquare)
     {
         //Check whether the square is occupied
-        if (moveToProcess.gameObject.transform.childCount > 0 && moveToProcess.gameObject.transform.GetChild(0).gameObject.activeSelf)
+        if (moveToProcess.gameObject.transform.childCount > 0)
         {
-            try
+            GameObject pieceToConsider = null;
+            int numActiveChildren = 0;
+            //Get the children of the square
+            for (int i = 0; i < moveToProcess.gameObject.transform.childCount; i++)
             {
-                //Check whether capture can occur
-                var pieceInSquare = moveToProcess.gameObject.transform.GetChild(0);
+                var child = moveToProcess.gameObject.transform.gameObject.transform.GetChild(i);
 
-                if (!pieceInSquare.gameObject.tag.Contains(selectedPieceColour))
+                if (child.gameObject.activeSelf)
                 {
-                    //Check whether the space beyond the opposing piece is free
-                    var beyondColIndex = increcmentColumn ? columnNumberOfSelectedPiece + 2 : columnNumberOfSelectedPiece - 2;
+                    pieceToConsider = child.gameObject;
+                    numActiveChildren++;
+                }
+            }
 
-                    //check for out of bounds
-                    if (beyondColIndex > 7 || beyondColIndex < 0)
+            if (numActiveChildren > 1)
+            {
+                throw new Exception("There should never be more than one active piece in a square");
+            }
+
+            if (pieceToConsider == null)
+            {
+                legalSquareList.Add(moveToProcess);
+                return;
+            }
+
+            //If active child was found, check whether capture can occur
+            var pieceInSquare = moveToProcess.gameObject.transform.GetChild(0);
+
+            if (!pieceInSquare.gameObject.tag.Contains(selectedPieceColour))
+            {
+                //Check whether the space beyond the opposing piece is free
+                var beyondColIndex = increcmentColumn ? columnNumberOfSelectedPiece + 2 : columnNumberOfSelectedPiece - 2;
+
+                //check for out of bounds
+                if (beyondColIndex > 7 || beyondColIndex < 0)
+                {
+                    return;
+                }
+
+                //Get squares for potential beyond move
+                var beyondchildCount = GameObject.Find("Column_" + beyondColIndex).transform.childCount;
+                GameObject[] beyondSquares = new GameObject[beyondchildCount];
+                for (int i = 0; i < childCount; i++)
+                {
+                    squares[i] = GameObject.Find("Column_" + beyondColIndex).transform.Find("Square_" + i.ToString()).gameObject;
+                }
+                var beyondMove = incrementSquare ? squares[squareNumberOfSelectedPiece + 2] : squares[squareNumberOfSelectedPiece - 2];
+
+                //Does the potential beyond space have any active children?
+                var numChildren = beyondMove.gameObject.transform.childCount;
+                bool hasActiveChild = false;
+                for (int i = 0; i < numChildren; i++)
+                {
+                    var child = beyondMove.gameObject.transform.GetChild(i).gameObject;
+
+                    if (child.activeSelf)
                     {
-                        return;
-                    }
-
-                    //Get squares for potential beyond move
-                    var beyondchildCount = GameObject.Find("Column_" + beyondColIndex).transform.childCount;
-                    GameObject[] beyondSquares = new GameObject[beyondchildCount];
-                    for (int i = 0; i < childCount; i++)
-                    {
-                        squares[i] = GameObject.Find("Column_" + beyondColIndex).transform.Find("Square_" + i.ToString()).gameObject;
-                    }
-                    var beyondMove = incrementSquare ? squares[squareNumberOfSelectedPiece + 2] : squares[squareNumberOfSelectedPiece - 2];
-
-                    //Does the potential beyond space have any active children?
-                    var numChildren = beyondMove.gameObject.transform.childCount;
-                    bool hasActiveChild = false;
-                    for (int i = 0; i < numChildren; i++)
-                    {
-                        var child = beyondMove.gameObject.transform.GetChild(i).gameObject;
-
-                        if (child.activeSelf)
-                        {
-                            hasActiveChild = true;
-                        }
-                    }
-
-                    if (!hasActiveChild)
-                    {
-                        if (sceneManager.DebugMode)
-                            Debug.Log($"Piece in {moveToProcess.name}, {columnToProcess.name} would be captured!");
-
-                        captureList.Add(pieceInSquare.gameObject);
-
-                        var beyondLegalSquareList = new List<GameObject>();
-                        beyondLegalSquareList.Add(beyondMove);
-                        legalMoveList.Add(GameObject.Find("Column_" + beyondColIndex), beyondLegalSquareList);
+                        hasActiveChild = true;
                     }
                 }
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                if (!hasActiveChild)
+                {
+                    if (sceneManager.DebugMode)
+                        Debug.Log($"Piece in {moveToProcess.name}, {columnToProcess.name} would be captured!");
+
+                    captureList.Add(pieceInSquare.gameObject);
+
+                    var beyondLegalSquareList = new List<GameObject>();
+                    beyondLegalSquareList.Add(beyondMove);
+                    legalMoveList.Add(GameObject.Find("Column_" + beyondColIndex), beyondLegalSquareList);
+                }
             }
         }
         else
