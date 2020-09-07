@@ -8,7 +8,16 @@ public class BannerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        banner = FindObjectOfType<Text>();   
+        Debug.Log("Inside Bannercontroller Start");
+        GetBannerTextObject();
+    }
+
+    private void GetBannerTextObject()
+    {
+        if (banner == null)
+        {
+            banner = FindObjectOfType<Text>();
+        }
     }
 
     // Update is called once per frame
@@ -19,6 +28,8 @@ public class BannerController : MonoBehaviour
 
     public void SetBannerMessage(string message)
     {
+        GetBannerTextObject();
+        Debug.Log("Inside Bannercontroller SetBannerMessage");
         banner.text = message;
     }
 }
