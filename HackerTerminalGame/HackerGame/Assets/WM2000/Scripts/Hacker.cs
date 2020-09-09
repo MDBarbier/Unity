@@ -20,7 +20,7 @@ public class Hacker : MonoBehaviour
     void Start()
     {
         var greeting = "Hello hacker";
-        DisplayMainMenu(greeting);
+        DisplayMainMenu(greeting);        
     }
 
     // Update is called once per frame
