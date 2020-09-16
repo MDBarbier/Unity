@@ -9,10 +9,12 @@ public class Rocket : MonoBehaviour
     AudioSource audioSource;
 
     [SerializeField]
-    public float lateralRotation = 2.5f;
+    float lateralRotation = 2.5f;
 
     [SerializeField]
-    public float thrust = 3f;
+    float thrust = 3f;
+
+    private bool crashed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,22 @@ public class Rocket : MonoBehaviour
         HandleLateralRotation();
     }
 
+    // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.transform.gameObject.tag)
+        {       
+            case "Friendly":
+                print("Touchdown!");
+                break;
+            case "Hazard":
+            default:
+                crashed = true;
+                print("BOOOOOM");
+                break;
+        }
+    }
+
     private void HandleLateralRotation()
     {
         rigidBody.freezeRotation = true; //take manual control of rotation
@@ -41,10 +59,16 @@ public class Rocket : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
+            if (crashed)
+                return;
+
             transform.Rotate(Vector3.forward * rotation);
         }
         else if (Input.GetKey(KeyCode.D))
-        {            
+        {
+            if (crashed)
+                return;
+
             transform.Rotate(Vector3.forward * -rotation);
         }
 
@@ -55,6 +79,9 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
+            if (crashed)
+                return;
+
             rigidBody.AddRelativeForce(new Vector3(0f, thrust, 0f));
 
             if (!audioSource.isPlaying)

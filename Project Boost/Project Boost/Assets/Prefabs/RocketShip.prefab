@@ -380,7 +380,7 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.000000059604645, y: 0.14, z: -0.00000008940697}
 --- !u!1 &2024681073022680089
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5222d0a5482203e409d90e92b8ce4b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lateralRotation: 100
+  lateralRotation: 80
   thrust: 5
 --- !u!1 &2292531006444124327
 GameObject:
@@ -655,6 +655,7 @@ GameObject:
   - component: {fileID: 4729148275069142664}
   - component: {fileID: 7868859727507986758}
   - component: {fileID: 7416699105839379289}
+  - component: {fileID: 4732916490546461950}
   m_Layer: 0
   m_Name: Cone
   m_TagString: Untagged
@@ -725,6 +726,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &4732916490546461950
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769242457272102031}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.00000002980233, z: 1.15}
 --- !u!1 &7180668371321790014
 GameObject:
   m_ObjectHideFlags: 0
