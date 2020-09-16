@@ -35,16 +35,20 @@ public class Rocket : MonoBehaviour
 
     private void HandleLateralRotation()
     {
+        rigidBody.freezeRotation = true; //take manual control of rotation
+
         var rotation = lateralRotation * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(new Vector3(0f, 0f, rotation));
+            transform.Rotate(Vector3.forward * rotation);
         }
         else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(new Vector3(0f, 0f, -rotation));
+        {            
+            transform.Rotate(Vector3.forward * -rotation);
         }
+
+        rigidBody.freezeRotation = false; //release manual control of rotation
     }
 
     private void HandleThrust()
