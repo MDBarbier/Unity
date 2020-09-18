@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Friendly
   - Hazard
+  - Booster
   layers:
   - Default
   - TransparentFX

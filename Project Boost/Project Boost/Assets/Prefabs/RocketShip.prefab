@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2024681071268600634}
   m_Layer: 0
   m_Name: StarboardBooster
-  m_TagString: Untagged
+  m_TagString: Booster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2024681071772469578}
   m_Layer: 0
   m_Name: PortBooster
-  m_TagString: Untagged
+  m_TagString: Booster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 2024681073022680068}
   m_Layer: 0
   m_Name: RocketShip
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -546,7 +546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5222d0a5482203e409d90e92b8ce4b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lateralRotation: 80
+  lateralRotation: 90
+  hover: 2
   thrust: 5
 --- !u!1 &2292531006444124327
 GameObject:
