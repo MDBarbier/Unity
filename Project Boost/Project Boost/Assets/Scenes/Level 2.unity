@@ -1739,10 +1739,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2024681073022680068, guid: 2f2284c68ccc22c45a91637bb1a660ad, type: 3}
-      propertyPath: lateralRotation
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 2024681073022680070, guid: 2f2284c68ccc22c45a91637bb1a660ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30

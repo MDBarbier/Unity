@@ -548,7 +548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lateralRotation: 90
   hover: 2
-  thrust: 5
+  thrust: 8
+  sceneLoadDelay: 1
 --- !u!1 &2292531006444124327
 GameObject:
   m_ObjectHideFlags: 0

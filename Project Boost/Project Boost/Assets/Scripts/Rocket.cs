@@ -7,18 +7,19 @@ public class Rocket : MonoBehaviour
     AudioSource audioSource;
 
     [SerializeField]
-    float lateralRotation = 80f;
+    float lateralRotation = 90f;
 
     [SerializeField]
     float hover = 2f;
 
     [SerializeField]
-    float thrust = 5f;
+    float thrust = 8f;
 
     [SerializeField]
     int sceneLoadDelay = 1;
-        
-    private States state = States.Alive;
+    
+    [SerializeField]
+    States state = States.Alive;
 
     // Start is called before the first frame update
     void Start()
@@ -40,11 +41,15 @@ public class Rocket : MonoBehaviour
             HandleThrust();
             HandleLateralRotation(); 
         }
+
+        //todo, stop engine noise on death
     }
 
     // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider
     private void OnCollisionEnter(Collision collision)
     {
+        if (state != States.Alive) return;
+
         var contact = collision.GetContact(0);
         
         switch (collision.transform.gameObject.tag)
@@ -62,17 +67,22 @@ public class Rocket : MonoBehaviour
 
                 break;
             case "Hazard":
-            default:                
+            default:                         
                 print("BOOOOOM");
                 state = States.Dying;
-                Invoke("LoadNextScene", sceneLoadDelay);
+                Invoke("LoadInitialScene", sceneLoadDelay);
                 break;
         }
     }
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1); //todo calculate next scene
+    }
+
+    private void LoadInitialScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void HandleLateralRotation()
