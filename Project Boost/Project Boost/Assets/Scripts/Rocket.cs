@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,9 +24,22 @@ public class Rocket : MonoBehaviour
     [SerializeField]
     States state = States.Alive;
 
+    [SerializeField]
+    AudioClip mainEngine;
+
+    [SerializeField]
+    AudioClip explosion;
+
+    [SerializeField]
+    AudioClip missionSuccess;
+
+    private Scene currentScene;
+    private int[] scenes = { 0, 1, 2 };
+
     // Start is called before the first frame update
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene();
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -59,16 +75,17 @@ public class Rocket : MonoBehaviour
             case "Finish":
 
                 if (contact.thisCollider.tag == "Booster")
-                {
-                    print("Touchdown!");
-                    Invoke("LoadNextScene", sceneLoadDelay);
+                {                    
                     state = States.Transcending;
+                    audioSource.PlayOneShot(missionSuccess);                    
+                    Invoke("LoadNextScene", sceneLoadDelay);
+                    
                 }
 
                 break;
             case "Hazard":
-            default:                         
-                print("BOOOOOM");
+            default:                                         
+                audioSource.PlayOneShot(explosion);
                 state = States.Dying;
                 Invoke("LoadInitialScene", sceneLoadDelay);
                 break;
@@ -77,7 +94,15 @@ public class Rocket : MonoBehaviour
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(1); //todo calculate next scene
+        var sceneIndex = currentScene.buildIndex;
+
+        if (!scenes.Contains(sceneIndex + 1))
+        {
+            LoadInitialScene(); //todo win screen            
+            return;
+        }
+
+        SceneManager.LoadScene(sceneIndex + 1);
     }
 
     private void LoadInitialScene()
@@ -126,10 +151,14 @@ public class Rocket : MonoBehaviour
     private void ApplyVerticalImpetus(float velocity)
     {
         rigidBody.AddRelativeForce(new Vector3(0f, velocity, 0f));
+        PlayAudio(mainEngine);
+    }
 
+    private void PlayAudio(AudioClip audioClip)
+    {
         if (!audioSource.isPlaying)
         {
-            audioSource.Play();
+            audioSource.PlayOneShot(audioClip);
         }
     }
 }

@@ -448,7 +448,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 078829a5bceda3d46b80c59d24ec4461, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -549,7 +549,11 @@ MonoBehaviour:
   lateralRotation: 90
   hover: 2
   thrust: 8
-  sceneLoadDelay: 1
+  sceneLoadDelay: 3
+  state: 0
+  mainEngine: {fileID: 8300000, guid: 078829a5bceda3d46b80c59d24ec4461, type: 3}
+  explosion: {fileID: 8300000, guid: 4e9ca0e73eb1a8248941eb3737716c67, type: 3}
+  missionSuccess: {fileID: 8300000, guid: d2fb591fded5d89459032f586eee638b, type: 3}
 --- !u!1 &2292531006444124327
 GameObject:
   m_ObjectHideFlags: 0
