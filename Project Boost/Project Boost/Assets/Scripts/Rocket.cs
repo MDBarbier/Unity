@@ -9,29 +9,17 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
-    [SerializeField]
-    float lateralRotation = 90f;
-
-    [SerializeField]
-    float hover = 2f;
-
-    [SerializeField]
-    float thrust = 8f;
-
-    [SerializeField]
-    int sceneLoadDelay = 1;
-    
-    [SerializeField]
-    States state = States.Alive;
-
-    [SerializeField]
-    AudioClip mainEngine;
-
-    [SerializeField]
-    AudioClip explosion;
-
-    [SerializeField]
-    AudioClip missionSuccess;
+    [SerializeField] float lateralRotation = 90f;
+    [SerializeField] float hover = 2f;
+    [SerializeField] float thrust = 8f;
+    [SerializeField] int sceneLoadDelay = 1;
+    [SerializeField] States state = States.Alive;
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip explosion;
+    [SerializeField] AudioClip missionSuccess;
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem deathParticles;
 
     private Scene currentScene;
     private int[] scenes = { 0, 1, 2 };
@@ -39,6 +27,7 @@ public class Rocket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainEngineParticles.Play();
         currentScene = SceneManager.GetActiveScene();
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
@@ -77,7 +66,8 @@ public class Rocket : MonoBehaviour
                 if (contact.thisCollider.tag == "Booster")
                 {                    
                     state = States.Transcending;
-                    audioSource.PlayOneShot(missionSuccess);                    
+                    audioSource.PlayOneShot(missionSuccess);
+                    successParticles.Play();
                     Invoke("LoadNextScene", sceneLoadDelay);
                     
                 }
@@ -86,6 +76,7 @@ public class Rocket : MonoBehaviour
             case "Hazard":
             default:                                         
                 audioSource.PlayOneShot(explosion);
+                deathParticles.Play();
                 state = States.Dying;
                 Invoke("LoadInitialScene", sceneLoadDelay);
                 break;
@@ -132,27 +123,28 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
+            PlayAudio(mainEngine);
             ApplyVerticalImpetus(thrust); //Todo refactor delegate
         }
         else if (Input.GetKey(KeyCode.W))
         {
+            PlayAudio(mainEngine);            
             ApplyVerticalImpetus(hover);
         }
         else if (Input.GetKey(KeyCode.S))
         {
             ApplyVerticalImpetus(-hover);
         }
-        else
-        {
-            audioSource.Stop();
-        }
+        else        
+        {            
+            audioSource.Stop();            
+        }        
     }
 
     private void ApplyVerticalImpetus(float velocity)
-    {
-        rigidBody.AddRelativeForce(new Vector3(0f, velocity, 0f));
-        PlayAudio(mainEngine);
-    }
+    {        
+        rigidBody.AddRelativeForce(new Vector3(0f, velocity, 0f));        
+    }    
 
     private void PlayAudio(AudioClip audioClip)
     {
