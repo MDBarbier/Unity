@@ -18,6 +18,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] AudioClip explosion;
     [SerializeField] AudioClip missionSuccess;
     [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem rearEngineParticles;
     [SerializeField] ParticleSystem successParticles;
     [SerializeField] ParticleSystem deathParticles;
 
@@ -27,7 +28,7 @@ public class Rocket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainEngineParticles.Play();
+        //mainEngineParticles.Play();
         currentScene = SceneManager.GetActiveScene();
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
@@ -37,6 +38,48 @@ public class Rocket : MonoBehaviour
     void Update()
     {
         ProcessInput();
+        HandleThrustParticles();
+    }
+
+    private void HandleThrustParticles()
+    {
+        if (state == States.Alive)
+        {
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
+            {
+                if (!mainEngineParticles.isPlaying)
+                {
+                    mainEngineParticles.Play();
+                }
+            }
+            else
+            {
+                if (mainEngineParticles.isPlaying)
+                {
+                    mainEngineParticles.Stop();
+                }
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                if (!rearEngineParticles.isPlaying)
+                {
+                    rearEngineParticles.Play();
+                }
+            }
+            else
+            {
+                if (rearEngineParticles.isPlaying)
+                {
+                    rearEngineParticles.Stop();
+                }
+            } 
+        }
+        else
+        {
+            mainEngineParticles.Stop();
+            rearEngineParticles.Stop();
+        }
     }
 
     private void ProcessInput()
