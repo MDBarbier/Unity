@@ -551,8 +551,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lateralRotation: 90
-  hover: 2
-  thrust: 8
+  hover: 800
+  thrust: 1800
   sceneLoadDelay: 3
   state: 0
   mainEngine: {fileID: 8300000, guid: 078829a5bceda3d46b80c59d24ec4461, type: 3}

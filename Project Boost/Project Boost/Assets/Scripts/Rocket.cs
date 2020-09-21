@@ -5,10 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
-{
-    Rigidbody rigidBody;
-    AudioSource audioSource;
-
+{    
     [SerializeField] float lateralRotation = 90f;
     [SerializeField] float hover = 2f;
     [SerializeField] float thrust = 8f;
@@ -22,8 +19,10 @@ public class Rocket : MonoBehaviour
     [SerializeField] ParticleSystem successParticles;
     [SerializeField] ParticleSystem deathParticles;
 
+    private Rigidbody rigidBody;
+    private AudioSource audioSource;
     private Scene currentScene;
-    private int[] scenes = { 0, 1, 2 };
+    private int[] scenes = { 0, 1, 2, 3 };
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +35,7 @@ public class Rocket : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         ProcessInput();
         HandleThrustParticles();
     }
@@ -89,8 +88,6 @@ public class Rocket : MonoBehaviour
             HandleThrust();
             HandleLateralRotation(); 
         }
-
-        //todo, stop engine noise on death
     }
 
     // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider
@@ -111,6 +108,7 @@ public class Rocket : MonoBehaviour
                     state = States.Transcending;
                     audioSource.PlayOneShot(missionSuccess);
                     successParticles.Play();
+                    rigidBody.isKinematic = true;
                     Invoke("LoadNextScene", sceneLoadDelay);
                     
                 }
@@ -167,7 +165,7 @@ public class Rocket : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             PlayAudio(mainEngine);
-            ApplyVerticalImpetus(thrust); //Todo refactor delegate
+            ApplyVerticalImpetus(thrust); //todo refactor delegate
         }
         else if (Input.GetKey(KeyCode.W))
         {
@@ -186,7 +184,7 @@ public class Rocket : MonoBehaviour
 
     private void ApplyVerticalImpetus(float velocity)
     {        
-        rigidBody.AddRelativeForce(new Vector3(0f, velocity, 0f));        
+        rigidBody.AddRelativeForce(new Vector3(0f, velocity, 0f) * Time.deltaTime);        
     }    
 
     private void PlayAudio(AudioClip audioClip)
