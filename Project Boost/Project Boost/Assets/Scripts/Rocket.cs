@@ -1,15 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
-{    
+{
+    private const string BoosterTag = "Booster";
+    private const string FriendlyTag = "Friendly";
+    private const string FinishTag = "Finish";
+    private const string HazardTag = "Hazard";
     [SerializeField] float lateralRotation = 90f;
     [SerializeField] float hover = 2f;
-    [SerializeField] float thrust = 8f;
-    [SerializeField] int sceneLoadDelay = 1;
+    [SerializeField] float thrust = 8f;    
     [SerializeField] States state = States.Alive;
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip explosion;
@@ -21,16 +20,14 @@ public class Rocket : MonoBehaviour
 
     private Rigidbody rigidBody;
     private AudioSource audioSource;
-    private Scene currentScene;
-    private int[] scenes = { 0, 1, 2, 3 };
+    private LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start()
-    {
-        //mainEngineParticles.Play();
-        currentScene = SceneManager.GetActiveScene();
+    {        
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
@@ -38,6 +35,40 @@ public class Rocket : MonoBehaviour
     {        
         ProcessInput();
         HandleThrustParticles();
+    }
+
+    // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (state != States.Alive) return;
+
+        var contact = collision.GetContact(0);
+
+        switch (collision.transform.gameObject.tag)
+        {
+            case FriendlyTag:
+                break;
+            case FinishTag:
+
+                if (contact.thisCollider.CompareTag(BoosterTag))
+                {
+                    state = States.Transcending;
+                    audioSource.PlayOneShot(missionSuccess);
+                    successParticles.Play();
+                    rigidBody.isKinematic = true;
+                    levelManager.LoadNextScene();
+
+                }
+
+                break;
+            case HazardTag:
+            default:
+                audioSource.PlayOneShot(explosion);
+                deathParticles.Play();
+                state = States.Dying;
+                levelManager.LoadInitialScene(); //nameof allows you to avoid magic strings for invoke
+                break;
+        }
     }
 
     private void HandleThrustParticles()
@@ -88,58 +119,6 @@ public class Rocket : MonoBehaviour
             HandleThrust();
             HandleLateralRotation(); 
         }
-    }
-
-    // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (state != States.Alive) return;
-
-        var contact = collision.GetContact(0);
-        
-        switch (collision.transform.gameObject.tag)
-        {       
-            case "Friendly":                
-                break;
-            case "Finish":
-
-                if (contact.thisCollider.tag == "Booster")
-                {                    
-                    state = States.Transcending;
-                    audioSource.PlayOneShot(missionSuccess);
-                    successParticles.Play();
-                    rigidBody.isKinematic = true;
-                    Invoke("LoadNextScene", sceneLoadDelay);
-                    
-                }
-
-                break;
-            case "Hazard":
-            default:                                         
-                audioSource.PlayOneShot(explosion);
-                deathParticles.Play();
-                state = States.Dying;
-                Invoke("LoadInitialScene", sceneLoadDelay);
-                break;
-        }
-    }
-
-    private void LoadNextScene()
-    {
-        var sceneIndex = currentScene.buildIndex;
-
-        if (!scenes.Contains(sceneIndex + 1))
-        {
-            LoadInitialScene(); //todo win screen            
-            return;
-        }
-
-        SceneManager.LoadScene(sceneIndex + 1);
-    }
-
-    private void LoadInitialScene()
-    {
-        SceneManager.LoadScene(0);
     }
 
     private void HandleLateralRotation()
