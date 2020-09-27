@@ -63,7 +63,7 @@ public class Rocket : MonoBehaviour
                 break;
             case HazardTag:
             default:
-                audioSource.PlayOneShot(explosion);
+                audioSource.PlayOneShot(explosion, 0.3f);                
                 deathParticles.Play();
                 state = States.Dying;
                 levelManager.LoadInitialScene(); //nameof allows you to avoid magic strings for invoke
@@ -153,6 +153,7 @@ public class Rocket : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
+            PlayAudio(mainEngine);
             ApplyVerticalImpetus(-hover);
         }
         else        

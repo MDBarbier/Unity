@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalScenes: 3
+  sceneLoadDelay: 2.5
