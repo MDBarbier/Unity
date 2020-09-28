@@ -2218,10 +2218,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8986143777611324507, guid: 1a495064090bc8a458f47c24e1da0335, type: 3}
-      propertyPath: sceneLoadDelay
-      value: 2.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a495064090bc8a458f47c24e1da0335, type: 3}
 --- !u!4 &2114964185 stripped

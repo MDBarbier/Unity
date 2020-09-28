@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] int totalScenes;
-    [SerializeField] float sceneLoadDelay = 1f;
+    private int totalScenes = 4;
+    [SerializeField] float sceneLoadDelay = 2.5f;
     private Scene currentScene;
     private int currentSceneIndex;    
 
@@ -18,10 +18,14 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Debug.isDebugBuild && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+        {
+            print("Debug key detected: Load next level");
+            LoadNextScene(0.3f);
+        }
     }
 
-    internal void LoadNextScene()
+    internal void LoadNextScene(float delay = 0.0f)
     {        
         currentSceneIndex = currentScene.buildIndex;
 
@@ -32,7 +36,14 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        Invoke(nameof(LoadNextSceneWithDelay), sceneLoadDelay);
+        if (delay <= Mathf.Epsilon)
+        {
+            Invoke(nameof(LoadNextSceneWithDelay), sceneLoadDelay);
+        }
+        else
+        {
+            Invoke(nameof(LoadNextSceneWithDelay), delay);
+        }        
     }
 
     internal void LoadInitialScene()
