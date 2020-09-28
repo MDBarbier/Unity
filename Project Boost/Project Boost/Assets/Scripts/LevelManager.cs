@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private int totalScenes = 4;
+    private int totalScenes;
     [SerializeField] float sceneLoadDelay = 2.5f;
     private Scene currentScene;
     private int currentSceneIndex;    
@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totalScenes = SceneManager.sceneCountInBuildSettings;
         currentScene = SceneManager.GetActiveScene();
         currentSceneIndex = currentScene.buildIndex;
     }
@@ -29,10 +30,10 @@ public class LevelManager : MonoBehaviour
     {        
         currentSceneIndex = currentScene.buildIndex;
 
-        if (currentSceneIndex + 1 > totalScenes)
+        if (currentSceneIndex + 1 >= totalScenes)
         {
             print("Winner winner chicken dinner!!!"); //todo win screen
-            LoadInitialScene();         
+            LoadInitialScene(delay);         
             return;
         }
 
@@ -46,9 +47,16 @@ public class LevelManager : MonoBehaviour
         }        
     }
 
-    internal void LoadInitialScene()
+    internal void LoadInitialScene(float delay = 0.0f)
     {
-        Invoke(nameof(LoadSceneWithDelay), sceneLoadDelay);
+        if (delay <= Mathf.Epsilon)
+        {
+            Invoke(nameof(LoadSceneWithDelay), sceneLoadDelay);
+        }
+        else
+        {
+            Invoke(nameof(LoadSceneWithDelay), delay);
+        }        
     }
 
     private void LoadNextSceneWithDelay()
