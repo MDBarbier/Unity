@@ -123,7 +123,7 @@ public class Rocket : MonoBehaviour
 
     private void HandleLateralRotation()
     {
-        rigidBody.freezeRotation = true; //take manual control of rotation
+        rigidBody.angularVelocity = Vector3.zero; //stop the effect of any rotation from the physics engine to give player control
 
         var rotation = lateralRotation * Time.deltaTime;
 
@@ -134,9 +134,7 @@ public class Rocket : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
            transform.Rotate(Vector3.forward * -rotation);
-        }
-
-        rigidBody.freezeRotation = false; //release manual control of rotation
+        }        
     }
 
     private void HandleThrust()
