@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/PredefinedSizeScroller.unity
+- path: Assets/Scenes/ContentSizeFitterTest.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

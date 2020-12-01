@@ -7,12 +7,17 @@ public class TextPopulator : MonoBehaviour
 {
 
     private Text text;
+    private string lorem;
+    private int target;
+    private int counter;
 
     // Start is called before the first frame update
     void Start()
     {
+        counter = 0;
+        target = 1000;
         text = gameObject.GetComponent<Text>();
-        text.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum, augue vitae varius scelerisque, ex sem fermentum enim, a vestibulum ante dui fringilla dui. " +
+        lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum, augue vitae varius scelerisque, ex sem fermentum enim, a vestibulum ante dui fringilla dui. " +
             "Nulla iaculis fermentum libero. Pellentesque lacinia, libero nec vehicula mattis, urna erat tempor erat, ac vestibulum massa mauris non felis. Nunc vel sapien id justo " +
             "consectetur faucibus accumsan at urna. Nullam laoreet vel lorem in eleifend. Suspendisse pretium tellus eu mi tincidunt tincidunt. Nunc ex eros, commodo ut odio et, pellentesque " +
             "cursus nibh. Integer sagittis mi eu arcu ultrices ultricies. Aenean ut metus iaculis, lacinia justo sit amet, fermentum sapien. Quisque in arcu vehicula, pharetra libero ut, " +
@@ -87,6 +92,18 @@ public class TextPopulator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (counter >= target)
+        {
+            text.text = lorem;
+        }
+        else
+        {
+            if (counter % 100 == 0)
+            {
+                print($"Lorem will be inserted when counter is {target}, counter current: {counter}");
+            }
+            
+            counter++;
+        }
     }
 }
